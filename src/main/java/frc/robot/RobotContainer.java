@@ -38,7 +38,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     this.drivetrain.setDefaultCommand(new ManualDrive(this.drivetrain, this.mainController));
-    this.mainController.buttons.get("B").onTrue(new ResetGyro(this.drivetrain));
+    this.mainController.buttons.get(7).onTrue(new ResetGyro(this.drivetrain));
   }
 
   /**
