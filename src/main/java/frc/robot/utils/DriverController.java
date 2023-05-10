@@ -14,14 +14,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DrivetrainConstants;
 
 /** 
- * DriveController serves as an extention to the typical xBoxController
+ * DriveController serves as an extention to the typical Joystick
  * with additional support for commonly used functions.
  */
 public class DriverController extends Joystick {
     public Map<Integer, JoystickButton> buttons = new HashMap<Integer, JoystickButton>();
 
     /**
-     * Creates a new drive controller, extends the XboxController class with additional functionality.
+     * Creates a new drive controller, extends the Joystick class with additional functionality.
      * @param port Port number of the controller (start at 0)
      */
     public DriverController(int port) {
@@ -47,7 +47,7 @@ public class DriverController extends Joystick {
 
     /**
      * Quick way to get the drivetrain output determined by the controller
-     * @return A 3D Pose vector <xVel, yVel, rotVel> in the format of the WPILIB ChassisSpeeds class
+     * @return A 3D Pose vector <xVel, yVel, rotVel> in the format of the WPILIB ChassisSpeeds class, factors alliance color
      */
     public ChassisSpeeds getDrivetrainOutput(){
         switch(DriverStation.getAlliance()){

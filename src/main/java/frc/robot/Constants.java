@@ -33,10 +33,10 @@ public final class Constants {
         public static int backRightDrive = 7;
         public static int backRightTurn = 8;
 
-        public static int frontLeftEncoder = 1;
-        public static int frontRightEncoder = 2;
-        public static int backLeftEncoder = 3;
-        public static int backRightEncoder = 4;
+        public static int frontLeftEncoder = 2;
+        public static int frontRightEncoder = 1;
+        public static int backLeftEncoder = 4;
+        public static int backRightEncoder = 3;
 
         public static int driverController = 0;
     }
