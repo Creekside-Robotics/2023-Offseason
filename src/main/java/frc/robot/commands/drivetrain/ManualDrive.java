@@ -18,6 +18,7 @@ public class ManualDrive extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.controller = controller;
+    addRequirements(this.drivetrain);
   }
 
   // Called when the command is initially scheduled.
