@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
@@ -33,7 +34,7 @@ public class Drivetrain extends SubsystemBase {
     DeviceIds.frontLeftDrive, 
     DeviceIds.frontLeftTurn, 
     DeviceIds.frontLeftEncoder, 
-    0
+    DeviceIds.frontLeftEncoderOffset
   );
 
   private final SwerveModule frontRight = Mk4iSwerveModuleHelper.createNeo(
@@ -41,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
     DeviceIds.frontRightDrive, 
     DeviceIds.frontRightTurn, 
     DeviceIds.frontRightEncoder, 
-    0
+    DeviceIds.frontRightEncoderOffset
   );
 
   private final SwerveModule backLeft = Mk4iSwerveModuleHelper.createNeo(
@@ -49,7 +50,7 @@ public class Drivetrain extends SubsystemBase {
     DeviceIds.backLeftDrive, 
     DeviceIds.backLeftTurn, 
     DeviceIds.backLeftEncoder, 
-    0
+    DeviceIds.backLeftEncoderOffset
   );
 
   private final SwerveModule backRight = Mk4iSwerveModuleHelper.createNeo(
@@ -57,7 +58,7 @@ public class Drivetrain extends SubsystemBase {
     DeviceIds.backRightDrive, 
     DeviceIds.backRightTurn, 
     DeviceIds.backRightEncoder, 
-    0
+    DeviceIds.backRightEncoderOffset
   );
 
   private final ADIS16448_IMU gyro = new ADIS16448_IMU();
@@ -76,7 +77,9 @@ public class Drivetrain extends SubsystemBase {
    * @return Gyro reading on the robot in a Rotation2d object
    */
   public Rotation2d getGyroRotation(){
-    return Rotation2d.fromDegrees(this.gyro.getGyroAngleX());
+    var rotation = Rotation2d.fromDegrees(this.gyro.getGyroAngleX());
+    SmartDashboard.putNumber("Heading", rotation.getRadians());
+    return rotation;
   }
 
   /**
