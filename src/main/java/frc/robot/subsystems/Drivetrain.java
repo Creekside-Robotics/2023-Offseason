@@ -170,4 +170,12 @@ public class Drivetrain extends SubsystemBase {
       this.backRight.getPosition()
     };
   }
+
+  /**
+   * Resets the drivetrain pose estimator to the given pose.
+   * @param pose The Pose2d object that the drivetrain will be set to.
+   */
+  public void setDrivetrainPose(Pose2d pose){
+    this.poseEstimator.resetPosition(getGyroRotation(), getModulePositions(), pose);
+  }
 }
