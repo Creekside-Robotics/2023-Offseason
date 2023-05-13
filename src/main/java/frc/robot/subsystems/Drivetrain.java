@@ -5,15 +5,24 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.Constants.FieldConstants;
+import frc.robot.utils.LimelightHelpers;
+import frc.robot.utils.LimelightHelpers.LimelightResults;
 import frc.robot.Constants.DeviceIds;
 
-import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
+import com.swervedrivespecialties.swervelib.MkModuleConfiguration;
+import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
+import com.swervedrivespecialties.swervelib.MotorType;
+import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -29,48 +38,65 @@ public class Drivetrain extends SubsystemBase {
     new Translation2d(-DrivetrainConstants.trackWidthLength / 2.0, -DrivetrainConstants.wheelBaseLength / 2.0)
   );
 
-  private final SwerveModule frontLeft = Mk4iSwerveModuleHelper.createNeo(
-    Mk4iSwerveModuleHelper.GearRatio.L2, 
-    DeviceIds.frontLeftDrive, 
-    DeviceIds.frontLeftTurn, 
-    DeviceIds.frontLeftEncoder, 
-    DeviceIds.frontLeftEncoderOffset
-  );
+  private final SwerveModule frontLeft = new MkSwerveModuleBuilder(
+    MkModuleConfiguration.getDefaultSteerNEO())
+    .withDriveMotor(MotorType.NEO, DeviceIds.frontLeftDrive)
+    .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+    .withSteerMotor(MotorType.NEO, DeviceIds.frontLeftTurn)
+    .withSteerEncoderPort(DeviceIds.frontLeftEncoder)
+    .withSteerOffset(DeviceIds.frontLeftEncoderOffset)
+    .build();
+  
+  
+  private final SwerveModule frontRight = new MkSwerveModuleBuilder(
+    MkModuleConfiguration.getDefaultSteerNEO())
+    .withDriveMotor(MotorType.NEO, DeviceIds.frontRightDrive)
+    .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+    .withSteerMotor(MotorType.NEO, DeviceIds.frontRightTurn)
+    .withSteerEncoderPort(DeviceIds.frontRightEncoder)
+    .withSteerOffset(DeviceIds.frontRightEncoderOffset)
+    .build();
 
-  private final SwerveModule frontRight = Mk4iSwerveModuleHelper.createNeo(
-    Mk4iSwerveModuleHelper.GearRatio.L2, 
-    DeviceIds.frontRightDrive, 
-    DeviceIds.frontRightTurn, 
-    DeviceIds.frontRightEncoder, 
-    DeviceIds.frontRightEncoderOffset
-  );
+  private final SwerveModule backLeft = new MkSwerveModuleBuilder(
+    MkModuleConfiguration.getDefaultSteerNEO())
+    .withDriveMotor(MotorType.NEO, DeviceIds.backLeftDrive)
+    .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+    .withSteerMotor(MotorType.NEO, DeviceIds.backLeftTurn)
+    .withSteerEncoderPort(DeviceIds.backLeftEncoder)
+    .withSteerOffset(DeviceIds.backLeftEncoderOffset)
+    .build();
 
-  private final SwerveModule backLeft = Mk4iSwerveModuleHelper.createNeo(
-    Mk4iSwerveModuleHelper.GearRatio.L2, 
-    DeviceIds.backLeftDrive, 
-    DeviceIds.backLeftTurn, 
-    DeviceIds.backLeftEncoder, 
-    DeviceIds.backLeftEncoderOffset
-  );
-
-  private final SwerveModule backRight = Mk4iSwerveModuleHelper.createNeo(
-    Mk4iSwerveModuleHelper.GearRatio.L2, 
-    DeviceIds.backRightDrive, 
-    DeviceIds.backRightTurn, 
-    DeviceIds.backRightEncoder, 
-    DeviceIds.backRightEncoderOffset
-  );
+  private final SwerveModule backRight = new MkSwerveModuleBuilder(
+    MkModuleConfiguration.getDefaultSteerNEO())
+    .withDriveMotor(MotorType.NEO, DeviceIds.backRightDrive)
+    .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+    .withSteerMotor(MotorType.NEO, DeviceIds.backRightTurn)
+    .withSteerEncoderPort(DeviceIds.backRightEncoder)
+    .withSteerOffset(DeviceIds.backRightEncoderOffset)
+    .build();
 
   private final ADIS16448_IMU gyro = new ADIS16448_IMU();
+
+  private final SwerveDrivePoseEstimator poseEstimator;
   
   /**
    * Creates a new drivetrain object. Represents a four corner swerve drive 
    * with odometry using encoder/Limelight fused data.
    */
-  public Drivetrain() {}
+  public Drivetrain() {
+    this.poseEstimator = new SwerveDrivePoseEstimator(
+      drivetrainKinematics, 
+      getGyroRotation(), 
+      getModulePositions(), 
+      FieldConstants.startingPose
+    );
+  }
 
   @Override
-  public void periodic() {}
+  public void periodic() {
+    this.poseEstimator.update(getGyroRotation(), getModulePositions());
+    this.updatePoseWithLimelight();
+  }
 
   /**
    * Retrives rotational data from the gyro.
@@ -80,6 +106,19 @@ public class Drivetrain extends SubsystemBase {
     var rotation = Rotation2d.fromDegrees(this.gyro.getGyroAngleX());
     SmartDashboard.putNumber("Heading", rotation.getRadians());
     return rotation;
+  }
+
+  /**
+   * Updates pose estimator with latency compensated vision estimate. Should be called periodically.
+   */
+  public void updatePoseWithLimelight(){
+    LimelightResults results = LimelightHelpers.getLatestResults("limelight");
+    results.targetingResults.getBotPose2d();
+    if (results.targetingResults.valid){
+      Pose2d pose = results.targetingResults.getBotPose2d();
+      double timestamp = results.targetingResults.timestamp_RIOFPGA_capture;
+      this.poseEstimator.addVisionMeasurement(pose, timestamp);
+    }
   }
 
   /**
@@ -118,5 +157,17 @@ public class Drivetrain extends SubsystemBase {
       swerveModuleStates[3].speedMetersPerSecond / DrivetrainConstants.AbsoluteMaxWheelVelocity * DrivetrainConstants.MaxVoltage, 
       swerveModuleStates[3].angle.getRadians()
     );
+  }
+
+  /**
+   * @return Array with swerve module positions, {frontLeft, frontRight, backLeft, backRight}
+   */
+  private SwerveModulePosition[] getModulePositions(){
+    return new SwerveModulePosition[]{
+      this.frontLeft.getPosition(),
+      this.frontRight.getPosition(),
+      this.backLeft.getPosition(),
+      this.backRight.getPosition()
+    };
   }
 }
