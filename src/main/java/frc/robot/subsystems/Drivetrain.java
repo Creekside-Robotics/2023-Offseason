@@ -25,6 +25,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -78,6 +79,8 @@ public class Drivetrain extends SubsystemBase {
   private final ADIS16448_IMU gyro = new ADIS16448_IMU();
 
   private final SwerveDrivePoseEstimator poseEstimator;
+
+  private final Field2d field2d = new Field2d();
   
   /**
    * Creates a new drivetrain object. Represents a four corner swerve drive 
@@ -90,12 +93,14 @@ public class Drivetrain extends SubsystemBase {
       getModulePositions(), 
       FieldConstants.startingPose
     );
+    SmartDashboard.putData("Field Display", field2d);
   }
 
   @Override
   public void periodic() {
     this.poseEstimator.update(getGyroRotation(), getModulePositions());
     this.updatePoseWithLimelight();
+    this.displayDrivetrainPose();
   }
 
   /**
@@ -177,5 +182,20 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setDrivetrainPose(Pose2d pose){
     this.poseEstimator.resetPosition(getGyroRotation(), getModulePositions(), pose);
+  }
+
+  /**
+   * Gets the estimated pose of the robot on the field.
+   * @return Pose2d object representing the robot on the field.
+   */
+  public Pose2d getPose(){
+    return this.poseEstimator.getEstimatedPosition();
+  }
+
+  /**
+   * Updates the display with the current drivetrain pose.
+   */
+  private void displayDrivetrainPose(){
+    this.field2d.setRobotPose(getPose());
   }
 }
