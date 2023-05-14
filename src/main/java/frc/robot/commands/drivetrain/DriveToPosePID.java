@@ -95,6 +95,10 @@ public class DriveToPosePID extends CommandBase {
     addRequirements(this.drivetrain);
   }
 
+  public DriveToPosePID(Drivetrain drivetrain2, DriverController mainController, Object pose, boolean[] usePID2,
+      Pose2d tolerance, boolean hold2) {
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -157,9 +161,9 @@ public class DriveToPosePID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !hold &&
-        (this.xController.atSetpoint() || !this.usePID[0]) &&
-        (this.yController.atSetpoint() || !this.usePID[1]) &&
-        (this.rotController.atSetpoint() || !this.usePID[2]);
+    return !hold
+        && (this.xController.atSetpoint() || !this.usePID[0])
+        && (this.yController.atSetpoint() || !this.usePID[1])
+        && (this.rotController.atSetpoint() || !this.usePID[2]);
   }
 }
