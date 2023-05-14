@@ -71,6 +71,9 @@ public final class Constants {
 
     public static double maxTranslationalSpeed = 3.0;
     public static double maxRotationalSpeed = Math.PI / 2;
+
+    public static double translationControllerPGain = 2.0;
+    public static double rotationControllerPGain = 0.5;
   }
 
   public static abstract class FieldConstants {
