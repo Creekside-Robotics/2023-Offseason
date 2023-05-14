@@ -19,7 +19,7 @@ public class DriveToPosePID extends CommandBase {
   /** Creates a new DriveToPosePID. */
   private PIDController xController = new PIDController(2, 0, 0);
   private PIDController yController = new PIDController(2, 0, 0);
-  private PIDController rotController = new PIDController(Math.PI/2, 0, 0);
+  private PIDController rotController = new PIDController(Math.PI / 2, 0, 0);
 
   private Drivetrain drivetrain;
   private DriverController driverController;
@@ -29,18 +29,25 @@ public class DriveToPosePID extends CommandBase {
 
   private boolean[] usePID;
   private boolean hold;
-  
+
   /**
    * Creates a new command which moves the robot to the specified pose.
-   * @param drivetrain Drivetrain object.
-   * @param driverController Controller that will be used by the driver to control the robot.
-   * @param pose Pose that the robot will move to.
-   * @param usePID Boolean array {x, y, rot}, that determines whether or not to use the PID controller the specified axis. 
-   * For example, using {false, false, true} will only control rotation of the robot.
-   * @param tolerance Pose2d object representing the needed tolerance before finishing the command.
-   * @param hold Whether or not to hold the robot at the specified position without finishing the command.
+   * 
+   * @param drivetrain       Drivetrain object.
+   * @param driverController Controller that will be used by the driver to control
+   *                         the robot.
+   * @param pose             Pose that the robot will move to.
+   * @param usePID           Boolean array {x, y, rot}, that determines whether or
+   *                         not to use the PID controller the specified axis.
+   *                         For example, using {false, false, true} will only
+   *                         control rotation of the robot.
+   * @param tolerance        Pose2d object representing the needed tolerance
+   *                         before finishing the command.
+   * @param hold             Whether or not to hold the robot at the specified
+   *                         position without finishing the command.
    */
-  public DriveToPosePID(Drivetrain drivetrain, DriverController driverController, Pose2d pose, boolean[] usePID, Pose2d tolerance, boolean hold) {
+  public DriveToPosePID(Drivetrain drivetrain, DriverController driverController, Pose2d pose, boolean[] usePID,
+      Pose2d tolerance, boolean hold) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.driverController = driverController;
@@ -57,15 +64,23 @@ public class DriveToPosePID extends CommandBase {
 
   /**
    * Creates a new command which moves the robot to the specified pose.
-   * @param drivetrain Drivetrain object.
-   * @param driverController Controller that will be used by the driver to control the robot.
-   * @param pose Supplier that provided pose that the robot will move to.
-   * @param usePID Boolean array {x, y, rot}, that determines whether or not to use the PID controller the specified axis. 
-   * For example, using {false, false, true} will only control rotation of the robot.
-   * @param tolerance Pose2d object representing the needed tolerance before finishing the command.
-   * @param hold Whether or not to hold the robot at the specified position without finishing the command.
+   * 
+   * @param drivetrain       Drivetrain object.
+   * @param driverController Controller that will be used by the driver to control
+   *                         the robot.
+   * @param pose             Supplier that provided pose that the robot will move
+   *                         to.
+   * @param usePID           Boolean array {x, y, rot}, that determines whether or
+   *                         not to use the PID controller the specified axis.
+   *                         For example, using {false, false, true} will only
+   *                         control rotation of the robot.
+   * @param tolerance        Pose2d object representing the needed tolerance
+   *                         before finishing the command.
+   * @param hold             Whether or not to hold the robot at the specified
+   *                         position without finishing the command.
    */
-  public DriveToPosePID(Drivetrain drivetrain, DriverController driverController, Supplier<Pose2d> poseSupplier, boolean[] usePID, Pose2d tolerance, boolean hold) {
+  public DriveToPosePID(Drivetrain drivetrain, DriverController driverController, Supplier<Pose2d> poseSupplier,
+      boolean[] usePID, Pose2d tolerance, boolean hold) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.driverController = driverController;
@@ -96,31 +111,38 @@ public class DriveToPosePID extends CommandBase {
 
   /**
    * Gets PID calculated output for drivetrain.
+   * 
    * @return ChassisSpeed Object representing output.
    */
-  private ChassisSpeeds getPIDChassisSpeeds(){
+  private ChassisSpeeds getPIDChassisSpeeds() {
     return new ChassisSpeeds(
-      MathUtil.clamp(xController.calculate(drivetrain.getPose().getX() - targetPose.getX()), -DrivetrainConstants.maxTranslationalSpeed, DrivetrainConstants.maxTranslationalSpeed),
-      MathUtil.clamp(yController.calculate(drivetrain.getPose().getY() - targetPose.getY()), -DrivetrainConstants.maxTranslationalSpeed, DrivetrainConstants.maxTranslationalSpeed),
-      MathUtil.clamp(rotController.calculate(drivetrain.getPose().getRotation().minus(targetPose.getRotation()).getRadians()), -DrivetrainConstants.maxRotationalSpeed, DrivetrainConstants.maxRotationalSpeed)
-    );
+        MathUtil.clamp(xController.calculate(drivetrain.getPose().getX() - targetPose.getX()),
+            -DrivetrainConstants.maxTranslationalSpeed, DrivetrainConstants.maxTranslationalSpeed),
+        MathUtil.clamp(yController.calculate(drivetrain.getPose().getY() - targetPose.getY()),
+            -DrivetrainConstants.maxTranslationalSpeed, DrivetrainConstants.maxTranslationalSpeed),
+        MathUtil.clamp(
+            rotController.calculate(drivetrain.getPose().getRotation().minus(targetPose.getRotation()).getRadians()),
+            -DrivetrainConstants.maxRotationalSpeed, DrivetrainConstants.maxRotationalSpeed));
   }
 
   /**
    * Fuses the PID calculated output and the controller output
-   * @param PIDOutput ChassisSpeeds object representing output determined by PID controllers.
-   * @param driverOutput ChassisSpeeds object representing output determined by driver controller.
+   * 
+   * @param PIDOutput    ChassisSpeeds object representing output determined by
+   *                     PID controllers.
+   * @param driverOutput ChassisSpeeds object representing output determined by
+   *                     driver controller.
    * @return Fused output as specified by usePID passed in consructor.
    */
-  private ChassisSpeeds fuseOutputSpeeds(ChassisSpeeds PIDOutput, ChassisSpeeds driverOutput){
+  private ChassisSpeeds fuseOutputSpeeds(ChassisSpeeds PIDOutput, ChassisSpeeds driverOutput) {
     ChassisSpeeds fusedOutput = driverOutput;
-    if(this.usePID[0]){
+    if (this.usePID[0]) {
       fusedOutput.vxMetersPerSecond = PIDOutput.vxMetersPerSecond;
     }
-    if(this.usePID[1]){
+    if (this.usePID[1]) {
       fusedOutput.vyMetersPerSecond = PIDOutput.vyMetersPerSecond;
     }
-    if(this.usePID[2]){
+    if (this.usePID[2]) {
       fusedOutput.omegaRadiansPerSecond = PIDOutput.omegaRadiansPerSecond;
     }
     return fusedOutput;
@@ -135,6 +157,9 @@ public class DriveToPosePID extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !hold && this.xController.atSetpoint() && this.yController.atSetpoint() && this.rotController.atSetpoint();
+    return !hold &&
+        (this.xController.atSetpoint() || !this.usePID[0]) &&
+        (this.yController.atSetpoint() || !this.usePID[1]) &&
+        (this.rotController.atSetpoint() || !this.usePID[2]);
   }
 }
