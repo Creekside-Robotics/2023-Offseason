@@ -17,9 +17,9 @@ import frc.robot.utils.DriverController;
 
 public class DriveToPosePID extends CommandBase {
   /** Creates a new DriveToPosePID. */
-  private PIDController xController = new PIDController(2, 0, 0);
-  private PIDController yController = new PIDController(2, 0, 0);
-  private PIDController rotController = new PIDController(Math.PI / 2, 0, 0);
+  private PIDController xController = new PIDController(DrivetrainConstants.translationControllerPGain, 0, 0);
+  private PIDController yController = new PIDController(DrivetrainConstants.translationControllerPGain, 0, 0);
+  private PIDController rotController = new PIDController(DrivetrainConstants.rotationControllerPGain, 0, 0);
 
   private Drivetrain drivetrain;
   private DriverController driverController;
