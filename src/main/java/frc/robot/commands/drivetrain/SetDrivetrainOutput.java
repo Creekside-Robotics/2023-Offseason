@@ -15,12 +15,16 @@ public class SetDrivetrainOutput extends CommandBase {
   private final boolean fieldOriented;
 
   /**
-   * Creates a new SetDrivetrain Output Command. The command sets the drivetrain to the outpur specified
+   * Creates a new SetDrivetrain Output Command. The command sets the drivetrain
+   * to the outpur specified
    * for the duration of the command.
-   * @param drivetrain Drivetrain subsystem that will be controlled.
-   * @param output The ChassisSpeed object representing the motion vector of the drivetrain.
-   * @param fieldOriented Wether or not the motion vector is relative to the field. If false, it will be
-   * assumed that the vector is realtive to the robot.
+   * 
+   * @param drivetrain    Drivetrain subsystem that will be controlled.
+   * @param output        The ChassisSpeed object representing the motion vector
+   *                      of the drivetrain.
+   * @param fieldOriented Wether or not the motion vector is relative to the
+   *                      field. If false, it will be
+   *                      assumed that the vector is realtive to the robot.
    */
   public SetDrivetrainOutput(Drivetrain drivetrain, ChassisSpeeds output, boolean fieldOriented) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -32,7 +36,8 @@ public class SetDrivetrainOutput extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -43,7 +48,7 @@ public class SetDrivetrainOutput extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.drivetrain.setDrivetrainOutput(new ChassisSpeeds(), false);;
+    this.drivetrain.setDrivetrainOutput(new ChassisSpeeds(), false);
   }
 
   // Returns true when the command should end.
