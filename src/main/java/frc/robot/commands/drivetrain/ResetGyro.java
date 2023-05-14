@@ -15,6 +15,7 @@ public class ResetGyro extends InstantCommand {
 
   /**
    * Creates a command that resets the gyro rotation of the drivetrain to zero.
+   * 
    * @param drivetrain
    */
   public ResetGyro(Drivetrain drivetrain) {

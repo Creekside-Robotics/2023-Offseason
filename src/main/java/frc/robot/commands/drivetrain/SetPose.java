@@ -19,8 +19,9 @@ public class SetPose extends InstantCommand {
 
   /**
    * Creates a new SetPose command which sets the pose of the drivetrain.
+   * 
    * @param drivetrain Drivetrain object.
-   * @param pose Pose to set the drivetrain to.
+   * @param pose       Pose to set the drivetrain to.
    */
   public SetPose(Drivetrain drivetrain, Pose2d pose) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,10 +31,12 @@ public class SetPose extends InstantCommand {
 
   /**
    * Creates a new SetPose command which sets the pose of the drivetrain.
-   * @param drivetrain Drivetrain object.
-   * @param poseSupplier Suppier object, which provides a pose to set the drivetrain to.
+   * 
+   * @param drivetrain   Drivetrain object.
+   * @param poseSupplier Suppier object, which provides a pose to set the
+   *                     drivetrain to.
    */
-  public SetPose(Drivetrain drivetrain, Supplier<Pose2d> poseSupplier){
+  public SetPose(Drivetrain drivetrain, Supplier<Pose2d> poseSupplier) {
     this.drivetrain = drivetrain;
     this.poseSupplier = poseSupplier;
   }
