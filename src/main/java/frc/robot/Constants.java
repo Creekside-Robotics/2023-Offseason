@@ -73,7 +73,7 @@ public final class Constants {
     public static double maxRotationalSpeed = Math.PI / 2;
   }
 
-  private static abstract class FieldConstants {
+  public static abstract class FieldConstants {
     public Pose2d[] gridPositions;
     public Pose2d[] substationPositions;
   }
