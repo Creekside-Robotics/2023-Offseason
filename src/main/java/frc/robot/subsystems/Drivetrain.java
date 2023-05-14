@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.Constants.FieldConstants;
 import frc.robot.utils.LimelightHelpers;
 import frc.robot.utils.LimelightHelpers.LimelightResults;
 import frc.robot.Constants.DeviceIds;
@@ -91,7 +90,7 @@ public class Drivetrain extends SubsystemBase {
       drivetrainKinematics, 
       getGyroRotation(), 
       getModulePositions(), 
-      FieldConstants.startingPose
+      new Pose2d()
     );
     SmartDashboard.putData("Field Display", field2d);
   }
@@ -197,5 +196,26 @@ public class Drivetrain extends SubsystemBase {
    */
   private void displayDrivetrainPose(){
     this.field2d.setRobotPose(getPose());
+  }
+
+  /**
+   * Gets the closest pose to the robot from a array of poses
+   * @param testPoses Pose2d[] containing poses to be tested.
+   * @return The Pose2d in the array that is closest to the robot.
+   */
+  public Pose2d getClosestPose(Pose2d[] testPoses){
+    Pose2d robotPose = getPose();
+    double closestDistance = 1000.0;
+    int closestIndex = -1;
+
+    for(int i = 0; i < testPoses.length; i++){
+      double distance = robotPose.getTranslation().getDistance(testPoses[i].getTranslation());
+      if (distance < closestDistance){
+        closestDistance = distance;
+        closestIndex = i;
+      }
+    }
+
+    return testPoses[closestIndex];
   }
 }
