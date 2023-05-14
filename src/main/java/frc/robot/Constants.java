@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import java.util.Map;
+
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -63,7 +67,55 @@ public final class Constants {
         public static double maxRotationalSpeed = Math.PI/2;
     }
 
-    public static class FieldConstants {
-      public static Pose2d startingPose = new Pose2d();
+    private static abstract class FieldConstants {
+      public Pose2d[] gridPositions;
+      public Pose2d[] substationPositions;
     }
+
+    public static class BlueFieldConstants extends FieldConstants{
+      public BlueFieldConstants(){
+        this.gridPositions = new Pose2d[]{
+          new Pose2d(1.82, 0.49, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 1.08, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 1.64, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 2.20, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 2.75, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 3.32, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 3.87, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 4.43, new Rotation2d(Math.PI)),
+          new Pose2d(1.82, 4.98, new Rotation2d(Math.PI))
+        };
+
+        this.substationPositions = new Pose2d[]{
+          new Pose2d(0.00, 6.00, new Rotation2d()),
+          new Pose2d(0.00, 7.34, new Rotation2d())
+        };
+      }
+    }
+
+    public static class RedFieldConstants extends FieldConstants{
+      public RedFieldConstants(){
+        this.gridPositions = new Pose2d[]{
+          new Pose2d(14.70, 0.49, new Rotation2d()),
+          new Pose2d(14.70, 1.08, new Rotation2d()),
+          new Pose2d(14.70, 1.64, new Rotation2d()),
+          new Pose2d(14.70, 2.20, new Rotation2d()),
+          new Pose2d(14.70, 2.75, new Rotation2d()),
+          new Pose2d(14.70, 3.32, new Rotation2d()),
+          new Pose2d(14.70, 3.87, new Rotation2d()),
+          new Pose2d(14.70, 4.43, new Rotation2d()),
+          new Pose2d(14.70, 4.98, new Rotation2d())
+        };
+
+        this.substationPositions = new Pose2d[]{
+          new Pose2d(0.00, 6.00, new Rotation2d(Math.PI)),
+          new Pose2d(0.00, 7.34, new Rotation2d(Math.PI))
+        };
+      }
+    }
+
+    public static Map<DriverStation.Alliance, FieldConstants> fieldConstantsMap = Map.of(
+      DriverStation.Alliance.Blue, new BlueFieldConstants(),
+      DriverStation.Alliance.Red, new RedFieldConstants()
+    );
 }
