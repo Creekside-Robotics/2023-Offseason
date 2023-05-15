@@ -24,6 +24,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.ADIS16448_IMU;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -72,6 +73,7 @@ public class Drivetrain extends SubsystemBase {
       .withSteerEncoderPort(DeviceIds.backRightEncoder)
       .withSteerOffset(DeviceIds.backRightEncoderOffset)
       .build();
+  
 
   private final ADIS16448_IMU gyro = new ADIS16448_IMU();
 
@@ -116,10 +118,11 @@ public class Drivetrain extends SubsystemBase {
    */
   public void updatePoseWithLimelight() {
     LimelightResults results = LimelightHelpers.getLatestResults("limelight");
-    results.targetingResults.getBotPose2d();
-    if (results.targetingResults.valid) {
-      Pose2d pose = results.targetingResults.getBotPose2d();
-      double timestamp = results.targetingResults.timestamp_RIOFPGA_capture;
+    if (results.targetingResults.valid && results.targetingResults.getBotPose2d_wpiBlue().getX() != 0) {
+      Pose2d pose = results.targetingResults.getBotPose2d_wpiBlue();
+      SmartDashboard.putNumber("Pose X", pose.getX());
+      double timestamp = Timer.getFPGATimestamp() - results.targetingResults.latency_capture/1000.0 - results.targetingResults.latency_pipeline/1000.0;
+      SmartDashboard.putNumber("Timestamp", timestamp);
       this.poseEstimator.addVisionMeasurement(pose, timestamp);
     }
   }
