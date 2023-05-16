@@ -46,6 +46,7 @@ public final class Constants {
     public static int backRightTurn = 8;
     public static int lowerArmForward = 9;
     public static int lowerArmBackward = 10;
+    public static int upperArm = 11;
 
     public static int frontLeftEncoder = 1;
     public static int frontRightEncoder = 2;
@@ -53,6 +54,7 @@ public final class Constants {
     public static int backRightEncoder = 4;
 
     public static int lowerArmEncoder = 0;
+    public static int upperArmEncoder = 1;
 
     public static int driverController = 0;
   }
@@ -83,6 +85,19 @@ public final class Constants {
   }
 
   public static class LowerArmConstants {
+    public static double encoderMultiplier = 1.0;
+    public static double encoderOffset = 0.0;
+
+    public static double proportionalGain = 1.0;
+    public static double derivativeGain = 0.0;
+
+    public static double maxSpeed = 0.3;
+    public static double maxAcceleration = 2.0;
+
+    public static double tolerance = 0.01;
+  }
+
+  public static class UpperArmConstants {
     public static double encoderMultiplier = 1.0;
     public static double encoderOffset = 0.0;
 
