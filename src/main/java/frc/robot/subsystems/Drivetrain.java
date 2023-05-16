@@ -77,7 +77,7 @@ public class Drivetrain extends SubsystemBase {
         .withGearRatio(SdsModuleConfigurations.MK4I_L2)
         .withSteerMotor(MotorType.NEO, DeviceIds.frontLeftTurn)
         .withSteerEncoderPort(DeviceIds.frontLeftEncoder)
-        .withSteerOffset(DeviceIds.frontLeftEncoderOffset)
+        .withSteerOffset(DrivetrainConstants.frontLeftEncoderOffset)
         .build();
     this.frontRight = new MkSwerveModuleBuilder(
         swerveModuleConfig)
@@ -85,7 +85,7 @@ public class Drivetrain extends SubsystemBase {
         .withGearRatio(SdsModuleConfigurations.MK4I_L2)
         .withSteerMotor(MotorType.NEO, DeviceIds.frontRightTurn)
         .withSteerEncoderPort(DeviceIds.frontRightEncoder)
-        .withSteerOffset(DeviceIds.frontRightEncoderOffset)
+        .withSteerOffset(DrivetrainConstants.frontRightEncoderOffset)
         .build();
     this.backLeft = new MkSwerveModuleBuilder(
         swerveModuleConfig)
@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase {
         .withGearRatio(SdsModuleConfigurations.MK4I_L2)
         .withSteerMotor(MotorType.NEO, DeviceIds.backLeftTurn)
         .withSteerEncoderPort(DeviceIds.backLeftEncoder)
-        .withSteerOffset(DeviceIds.backLeftEncoderOffset)
+        .withSteerOffset(DrivetrainConstants.backLeftEncoderOffset)
         .build();
     this.backRight = new MkSwerveModuleBuilder(
         swerveModuleConfig)
@@ -101,7 +101,7 @@ public class Drivetrain extends SubsystemBase {
         .withGearRatio(SdsModuleConfigurations.MK4I_L2)
         .withSteerMotor(MotorType.NEO, DeviceIds.backRightTurn)
         .withSteerEncoderPort(DeviceIds.backRightEncoder)
-        .withSteerOffset(DeviceIds.backRightEncoderOffset)
+        .withSteerOffset(DrivetrainConstants.backRightEncoderOffset)
         .build();
   }
 
