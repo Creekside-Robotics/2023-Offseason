@@ -38,42 +38,12 @@ public class Drivetrain extends SubsystemBase {
       new Translation2d(-DrivetrainConstants.trackWidthLength / 2.0, DrivetrainConstants.wheelBaseLength / 2.0),
       new Translation2d(-DrivetrainConstants.trackWidthLength / 2.0, -DrivetrainConstants.wheelBaseLength / 2.0));
 
-  private final SwerveModule frontLeft = new MkSwerveModuleBuilder(
-      MkModuleConfiguration.getDefaultSteerNEO())
-      .withDriveMotor(MotorType.NEO, DeviceIds.frontLeftDrive)
-      .withGearRatio(SdsModuleConfigurations.MK4I_L2)
-      .withSteerMotor(MotorType.NEO, DeviceIds.frontLeftTurn)
-      .withSteerEncoderPort(DeviceIds.frontLeftEncoder)
-      .withSteerOffset(DeviceIds.frontLeftEncoderOffset)
-      .build();
+  private MkModuleConfiguration swerveModuleConfig;
 
-  private final SwerveModule frontRight = new MkSwerveModuleBuilder(
-      MkModuleConfiguration.getDefaultSteerNEO())
-      .withDriveMotor(MotorType.NEO, DeviceIds.frontRightDrive)
-      .withGearRatio(SdsModuleConfigurations.MK4I_L2)
-      .withSteerMotor(MotorType.NEO, DeviceIds.frontRightTurn)
-      .withSteerEncoderPort(DeviceIds.frontRightEncoder)
-      .withSteerOffset(DeviceIds.frontRightEncoderOffset)
-      .build();
-
-  private final SwerveModule backLeft = new MkSwerveModuleBuilder(
-      MkModuleConfiguration.getDefaultSteerNEO())
-      .withDriveMotor(MotorType.NEO, DeviceIds.backLeftDrive)
-      .withGearRatio(SdsModuleConfigurations.MK4I_L2)
-      .withSteerMotor(MotorType.NEO, DeviceIds.backLeftTurn)
-      .withSteerEncoderPort(DeviceIds.backLeftEncoder)
-      .withSteerOffset(DeviceIds.backLeftEncoderOffset)
-      .build();
-
-  private final SwerveModule backRight = new MkSwerveModuleBuilder(
-      MkModuleConfiguration.getDefaultSteerNEO())
-      .withDriveMotor(MotorType.NEO, DeviceIds.backRightDrive)
-      .withGearRatio(SdsModuleConfigurations.MK4I_L2)
-      .withSteerMotor(MotorType.NEO, DeviceIds.backRightTurn)
-      .withSteerEncoderPort(DeviceIds.backRightEncoder)
-      .withSteerOffset(DeviceIds.backRightEncoderOffset)
-      .build();
-  
+  private SwerveModule frontLeft;
+  private SwerveModule frontRight;
+  private SwerveModule backLeft;
+  private SwerveModule backRight;
 
   private final ADIS16448_IMU gyro = new ADIS16448_IMU();
 
@@ -86,12 +56,53 @@ public class Drivetrain extends SubsystemBase {
    * with odometry using encoder/Limelight fused data.
    */
   public Drivetrain() {
+    this.configureSwerveModules();
     this.poseEstimator = new SwerveDrivePoseEstimator(
         drivetrainKinematics,
         getGyroRotation(),
         getModulePositions(),
         new Pose2d());
     SmartDashboard.putData("Field Display", field2d);
+  }
+
+  /**
+   * Method to instantiate swerve modules and configurations.
+   */
+  private void configureSwerveModules() {
+    this.swerveModuleConfig = MkModuleConfiguration.getDefaultSteerNEO();
+    this.swerveModuleConfig.setDriveCurrentLimit(DrivetrainConstants.driveCurrentLimit);
+    this.frontLeft = new MkSwerveModuleBuilder(
+        swerveModuleConfig)
+        .withDriveMotor(MotorType.NEO, DeviceIds.frontLeftDrive)
+        .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+        .withSteerMotor(MotorType.NEO, DeviceIds.frontLeftTurn)
+        .withSteerEncoderPort(DeviceIds.frontLeftEncoder)
+        .withSteerOffset(DeviceIds.frontLeftEncoderOffset)
+        .build();
+    this.frontRight = new MkSwerveModuleBuilder(
+        swerveModuleConfig)
+        .withDriveMotor(MotorType.NEO, DeviceIds.frontRightDrive)
+        .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+        .withSteerMotor(MotorType.NEO, DeviceIds.frontRightTurn)
+        .withSteerEncoderPort(DeviceIds.frontRightEncoder)
+        .withSteerOffset(DeviceIds.frontRightEncoderOffset)
+        .build();
+    this.backLeft = new MkSwerveModuleBuilder(
+        swerveModuleConfig)
+        .withDriveMotor(MotorType.NEO, DeviceIds.backLeftDrive)
+        .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+        .withSteerMotor(MotorType.NEO, DeviceIds.backLeftTurn)
+        .withSteerEncoderPort(DeviceIds.backLeftEncoder)
+        .withSteerOffset(DeviceIds.backLeftEncoderOffset)
+        .build();
+    this.backRight = new MkSwerveModuleBuilder(
+        swerveModuleConfig)
+        .withDriveMotor(MotorType.NEO, DeviceIds.backRightDrive)
+        .withGearRatio(SdsModuleConfigurations.MK4I_L2)
+        .withSteerMotor(MotorType.NEO, DeviceIds.backRightTurn)
+        .withSteerEncoderPort(DeviceIds.backRightEncoder)
+        .withSteerOffset(DeviceIds.backRightEncoderOffset)
+        .build();
   }
 
   @Override
@@ -121,7 +132,8 @@ public class Drivetrain extends SubsystemBase {
     if (results.targetingResults.valid && results.targetingResults.getBotPose2d_wpiBlue().getX() != 0) {
       Pose2d pose = results.targetingResults.getBotPose2d_wpiBlue();
       SmartDashboard.putNumber("Pose X", pose.getX());
-      double timestamp = Timer.getFPGATimestamp() - results.targetingResults.latency_capture/1000.0 - results.targetingResults.latency_pipeline/1000.0;
+      double timestamp = Timer.getFPGATimestamp() - results.targetingResults.latency_capture / 1000.0
+          - results.targetingResults.latency_pipeline / 1000.0;
       SmartDashboard.putNumber("Timestamp", timestamp);
       this.poseEstimator.addVisionMeasurement(pose, timestamp);
     }
