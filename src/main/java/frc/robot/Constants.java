@@ -44,16 +44,15 @@ public final class Constants {
     public static int backLeftTurn = 6;
     public static int backRightDrive = 7;
     public static int backRightTurn = 8;
+    public static int lowerArmForward = 9;
+    public static int lowerArmBackward = 10;
 
     public static int frontLeftEncoder = 1;
     public static int frontRightEncoder = 2;
     public static int backLeftEncoder = 3;
     public static int backRightEncoder = 4;
 
-    public static double frontLeftEncoderOffset = Math.toRadians(-354.46) + Math.PI;
-    public static double frontRightEncoderOffset = Math.toRadians(-69.87) + Math.PI;
-    public static double backLeftEncoderOffset = Math.toRadians(-212.34);
-    public static double backRightEncoderOffset = Math.toRadians(-312.53);
+    public static int lowerArmEncoder = 0;
 
     public static int driverController = 0;
   }
@@ -76,6 +75,24 @@ public final class Constants {
 
     public static double translationControllerPGain = 3.0;
     public static double rotationControllerPGain = 2.0;
+
+    public static double frontLeftEncoderOffset = Math.toRadians(-354.46) + Math.PI;
+    public static double frontRightEncoderOffset = Math.toRadians(-69.87) + Math.PI;
+    public static double backLeftEncoderOffset = Math.toRadians(-212.34);
+    public static double backRightEncoderOffset = Math.toRadians(-312.53);
+  }
+
+  public static class LowerArmConstants {
+    public static double encoderMultiplier = 1.0;
+    public static double encoderOffset = 0.0;
+
+    public static double proportionalGain = 1.0;
+    public static double derivativeGain = 0.0;
+
+    public static double maxSpeed = 0.3;
+    public static double maxAcceleration = 2.0;
+
+    public static double tolerance = 0.01;
   }
 
   public static abstract class FieldConstants {
