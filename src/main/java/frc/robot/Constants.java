@@ -69,7 +69,9 @@ public final class Constants {
     public static double AbsoluteMaxAngularVelocity = AbsoluteMaxWheelVelocity /
         Math.hypot(wheelBaseLength / 2.0, wheelBaseLength / 2.0);
 
-    public static double maxTranslationalSpeed = 2.0;
+    public static double driveCurrentLimit = 20.0;
+
+    public static double maxTranslationalSpeed = 3.0;
     public static double maxRotationalSpeed = Math.PI / 2;
 
     public static double translationControllerPGain = 3.0;
