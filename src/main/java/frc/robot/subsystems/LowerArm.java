@@ -33,6 +33,7 @@ public class LowerArm extends AbstractArm {
      */
     public LowerArm(){
         this.forwardMotor = new CANSparkMax(DeviceIds.lowerArmForward, MotorType.kBrushless);
+        this.forwardMotor.setInverted(false);
         this.reverseMotor = new CANSparkMax(DeviceIds.lowerArmBackward, MotorType.kBrushless);
         this.reverseMotor.setInverted(true);
         this.armEncoder = new DutyCycleEncoder(DeviceIds.lowerArmEncoder);
@@ -44,7 +45,7 @@ public class LowerArm extends AbstractArm {
     @Override
     public void periodic(){
         updateMotorOutput();
-        // setOutput();
+        setOutput();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class LowerArm extends AbstractArm {
      * @return Maximum value of change in velocity. 
      */
     private double getAccelerationTolerance(){
-        return (this.latestSetTime - Timer.getFPGATimestamp()) * LowerArmConstants.maxAcceleration;
+        return (Timer.getFPGATimestamp() - this.latestSetTime) * LowerArmConstants.maxAcceleration;
     }
 
     /**

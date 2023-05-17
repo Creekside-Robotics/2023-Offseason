@@ -14,6 +14,8 @@ import frc.robot.commands.drivetrain.ManualDrive;
 import frc.robot.commands.drivetrain.SetDrivetrainOutput;
 import frc.robot.commands.drivetrain.SetPose;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.LowerArm;
+import frc.robot.subsystems.UpperArm;
 import frc.robot.utils.DriverController;
 
 /**
@@ -28,6 +30,8 @@ import frc.robot.utils.DriverController;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrain = new Drivetrain();
+  private final LowerArm lowerArm = new LowerArm();
+  private final UpperArm upperArm = new UpperArm();
 
   private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
 

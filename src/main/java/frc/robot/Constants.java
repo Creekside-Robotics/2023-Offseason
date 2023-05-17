@@ -44,8 +44,8 @@ public final class Constants {
     public static int backLeftTurn = 6;
     public static int backRightDrive = 7;
     public static int backRightTurn = 8;
-    public static int lowerArmForward = 9;
-    public static int lowerArmBackward = 10;
+    public static int lowerArmForward = 10;
+    public static int lowerArmBackward = 9;
     public static int upperArm = 11;
 
     public static int frontLeftEncoder = 1;
@@ -76,7 +76,7 @@ public final class Constants {
     public static double maxRotationalSpeed = Math.PI / 2;
 
     public static double translationControllerPGain = 3.0;
-    public static double rotationControllerPGain = 2.0;
+    public static double rotationControllerPGain = 3.0;
 
     public static double frontLeftEncoderOffset = Math.toRadians(-354.46) + Math.PI;
     public static double frontRightEncoderOffset = Math.toRadians(-69.87) + Math.PI;
@@ -86,26 +86,26 @@ public final class Constants {
 
   public static class LowerArmConstants {
     public static double encoderMultiplier = 1.0;
-    public static double encoderOffset = 0.0;
+    public static double encoderOffset = -0.5;
 
-    public static double proportionalGain = 1.0;
+    public static double proportionalGain = 3.0;
     public static double derivativeGain = 0.0;
 
-    public static double maxSpeed = 0.3;
-    public static double maxAcceleration = 2.0;
+    public static double maxSpeed = 0.5;
+    public static double maxAcceleration = 1.0;
 
     public static double tolerance = 0.01;
   }
 
   public static class UpperArmConstants {
-    public static double encoderMultiplier = 1.0;
-    public static double encoderOffset = 0.0;
+    public static double encoderMultiplier = -1.0;
+    public static double encoderOffset = -0.31;
 
-    public static double proportionalGain = 1.0;
+    public static double proportionalGain = 3.0;
     public static double derivativeGain = 0.0;
 
-    public static double maxSpeed = 0.3;
-    public static double maxAcceleration = 2.0;
+    public static double maxSpeed = 0.5;
+    public static double maxAcceleration = 1.0;
 
     public static double tolerance = 0.01;
   }
