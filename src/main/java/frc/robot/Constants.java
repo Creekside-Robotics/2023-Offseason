@@ -110,6 +110,28 @@ public final class Constants {
     public static double tolerance = 0.01;
   }
 
+  public static class ArmPositions{
+    public static double lowerThree = 0.0;
+    public static double upperThree = 0.0;
+
+    public static double lowerTwo = 0.0;
+    public static double upperTwo = 0.0;
+
+    public static double lowerOne = 0.0;
+    public static double upperOne = 0.0;
+
+    public static double lowerIntake = 0.0;
+    public static double upperIntake = 0.0;
+
+    public static double lowerStowed = 0.0;
+    public static double upperStowed = 0.0;
+
+    public static double lowerPickup = 0.0;
+    public static double upperPickup = 0.0;
+
+    public static double upperTransitional = 0.0;
+  }
+
   public static abstract class FieldConstants {
     public Pose2d[] gridPositions;
     public Pose2d[] substationPositions;
