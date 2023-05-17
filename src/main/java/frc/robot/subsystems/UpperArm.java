@@ -32,6 +32,7 @@ public class UpperArm extends AbstractArm {
      */
     public UpperArm(){
         this.motor = new CANSparkMax(DeviceIds.upperArm, MotorType.kBrushless);
+        this.motor.setInverted(false);
         this.armEncoder = new DutyCycleEncoder(DeviceIds.upperArmEncoder);
 
         this.armController = new PIDController(UpperArmConstants.proportionalGain, 0, UpperArmConstants.derivativeGain);
@@ -41,7 +42,7 @@ public class UpperArm extends AbstractArm {
     @Override
     public void periodic(){
         updateMotorOutput();
-        // setOutput();
+        setOutput();
     }
 
     @Override
@@ -62,7 +63,7 @@ public class UpperArm extends AbstractArm {
      * @return Maximum value of change in velocity. 
      */
     private double getAccelerationTolerance(){
-        return (this.latestSetTime - Timer.getFPGATimestamp()) * UpperArmConstants.maxAcceleration;
+        return (Timer.getFPGATimestamp() - this.latestSetTime) * UpperArmConstants.maxAcceleration;
     }
 
     /**
