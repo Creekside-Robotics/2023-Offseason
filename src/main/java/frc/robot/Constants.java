@@ -47,6 +47,8 @@ public final class Constants {
     public static int lowerArmForward = 10;
     public static int lowerArmBackward = 9;
     public static int upperArm = 11;
+    public static int intakeForwardMotor = 12;
+    public static int intakeReverseMotor = 13;
 
     public static int frontLeftEncoder = 1;
     public static int frontRightEncoder = 2;
@@ -58,6 +60,8 @@ public final class Constants {
 
     public static int clawForward = 0;
     public static int clawReverse = 1;
+    public static int intakePistonForward = 2;
+    public static int intakePistonReverse = 3;
 
     public static int driverController = 0;
   }
@@ -133,6 +137,12 @@ public final class Constants {
     public static double upperPickup = 0.0;
 
     public static double upperTransitional = 0.0;
+  }
+
+  public static class IntakeConstants{
+    public static double intakeSpeed = 0.5;
+    public static double climbSpeed = 0.25;
+    public static double climbTime = 0.25;
   }
 
   public static abstract class FieldConstants {
