@@ -142,7 +142,9 @@ public final class Constants {
   public static class IntakeConstants{
     public static double intakeSpeed = 0.5;
     public static double climbSpeed = 0.25;
-    public static double climbTime = 0.25;
+    public static double climbTime = 0.5;
+    public static double dropSpeed = -0.25;
+    public static double dropTime = 0.25;
   }
 
   public static abstract class FieldConstants {
