@@ -56,6 +56,9 @@ public final class Constants {
     public static int lowerArmEncoder = 0;
     public static int upperArmEncoder = 1;
 
+    public static int clawForward = 0;
+    public static int clawReverse = 1;
+
     public static int driverController = 0;
   }
 
