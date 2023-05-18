@@ -16,7 +16,7 @@ import frc.robot.Constants.DeviceIds;
 import frc.robot.Constants.UpperArmConstants;
 
 /** Add your docs here. */
-public class UpperArm extends AbstractArm {
+public class UpperArm extends Arm {
     private CANSparkMax motor;
 
     private DutyCycleEncoder armEncoder;

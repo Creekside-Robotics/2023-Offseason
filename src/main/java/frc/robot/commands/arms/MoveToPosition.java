@@ -7,15 +7,15 @@ package frc.robot.commands.arms;
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.AbstractArm;
+import frc.robot.subsystems.Arm;
 
 public class MoveToPosition extends CommandBase {
   /** Creates a new MoveToPosition. */
-  private AbstractArm arm;
+  private Arm arm;
   private Supplier<Double> goalPositionSupplier;
   private boolean wait;
 
-  public MoveToPosition(AbstractArm arm, double position, boolean wait) {
+  public MoveToPosition(Arm arm, double position, boolean wait) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.arm = arm;
     this.goalPositionSupplier = () -> position;
