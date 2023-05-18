@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** This class serves as the base for arm subsystems on the robot. */
-public abstract class AbstractArm extends SubsystemBase {
+public abstract class Arm extends SubsystemBase {
 
     /**
      * Returns the current position of the arm.
