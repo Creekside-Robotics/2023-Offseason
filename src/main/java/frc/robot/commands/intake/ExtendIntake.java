@@ -18,9 +18,8 @@ public class ExtendIntake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetIntakeMode(intake, IntakeConstants.dropSpeed, true),
-      new WaitCommand(IntakeConstants.dropTime),
-      new SetIntakeMode(intake, IntakeConstants.intakeSpeed, true)
-    );
+        new SetIntakeMode(intake, IntakeConstants.dropSpeed, true),
+        new WaitCommand(IntakeConstants.dropTime),
+        new SetIntakeMode(intake, IntakeConstants.intakeSpeed, true));
   }
 }

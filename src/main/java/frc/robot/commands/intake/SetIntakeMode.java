@@ -7,7 +7,6 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Intake;
 
-
 public class SetIntakeMode extends InstantCommand {
   private Intake intake;
   private double intakeVelocity;
@@ -15,8 +14,10 @@ public class SetIntakeMode extends InstantCommand {
 
   /**
    * Creates a new SetIntakeMode object, which sets the mode of the intake.
-   * @param intake Intake to set the mode of.
-   * @param intakeVelocity Velocity to set the rollers of the intake to. Positive is inward.
+   * 
+   * @param intake         Intake to set the mode of.
+   * @param intakeVelocity Velocity to set the rollers of the intake to. Positive
+   *                       is inward.
    * @param intakeExtended Whether or not the intake should be extended.
    */
   public SetIntakeMode(Intake intake, double intakeVelocity, boolean intakeExtended) {
