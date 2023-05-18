@@ -18,9 +18,8 @@ public class RetractIntake extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetIntakeMode(intake, IntakeConstants.climbSpeed, false),
-      new WaitCommand(IntakeConstants.climbTime),
-      new SetIntakeMode(intake, 0, false)
-    );
+        new SetIntakeMode(intake, IntakeConstants.climbSpeed, false),
+        new WaitCommand(IntakeConstants.climbTime),
+        new SetIntakeMode(intake, 0, false));
   }
 }
