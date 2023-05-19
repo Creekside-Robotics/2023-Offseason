@@ -117,7 +117,7 @@ public final class Constants {
     public static double tolerance = 0.01;
   }
 
-  public static class ArmPositions{
+  public static class ArmPositions {
     public static double lowerThree = 0.0;
     public static double upperThree = 0.0;
 
@@ -139,12 +139,16 @@ public final class Constants {
     public static double upperTransitional = 0.0;
   }
 
-  public static class IntakeConstants{
+  public static class IntakeConstants {
     public static double intakeSpeed = 0.5;
     public static double climbSpeed = 0.25;
     public static double climbTime = 0.5;
     public static double dropSpeed = -0.25;
     public static double dropTime = 0.25;
+  }
+
+  public static class ClawConstants {
+    public static double openingDelay = 0.25;
   }
 
   public static abstract class FieldConstants {

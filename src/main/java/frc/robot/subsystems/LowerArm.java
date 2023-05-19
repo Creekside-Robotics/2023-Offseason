@@ -12,6 +12,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.ArmPositions;
 import frc.robot.Constants.DeviceIds;
 import frc.robot.Constants.LowerArmConstants;
 
@@ -24,14 +25,14 @@ public class LowerArm extends Arm {
 
     private PIDController armController;
 
-    private double goalPosition = 0.0;
+    private double goalPosition = ArmPositions.lowerStowed;
     private double motorOutput = 0.0;
     private double latestSetTime = Timer.getFPGATimestamp();
 
     /**
      * Creates a new subsystem representing the lower arm the robot.
      */
-    public LowerArm(){
+    public LowerArm() {
         this.forwardMotor = new CANSparkMax(DeviceIds.lowerArmForward, MotorType.kBrushless);
         this.forwardMotor.setInverted(false);
         this.reverseMotor = new CANSparkMax(DeviceIds.lowerArmBackward, MotorType.kBrushless);
@@ -43,7 +44,7 @@ public class LowerArm extends Arm {
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
         updateMotorOutput();
         setOutput();
     }
@@ -51,10 +52,10 @@ public class LowerArm extends Arm {
     @Override
     public double getArmPosition() {
         var value = (this.armEncoder.get() * LowerArmConstants.encoderMultiplier + LowerArmConstants.encoderOffset) % 1;
-        if (value < -0.5){
+        if (value < -0.5) {
             value += 1.0;
-        } 
-        if (value > 0.5){
+        }
+        if (value > 0.5) {
             value -= 1.0;
         }
         SmartDashboard.putNumber("Lower Arm Position", value);
@@ -63,38 +64,38 @@ public class LowerArm extends Arm {
 
     /**
      * Calculates the maximimum magnitude of changes in velocity for the mechanism.
-     * @return Maximum value of change in velocity. 
+     * 
+     * @return Maximum value of change in velocity.
      */
-    private double getAccelerationTolerance(){
+    private double getAccelerationTolerance() {
         return (Timer.getFPGATimestamp() - this.latestSetTime) * LowerArmConstants.maxAcceleration;
     }
 
     /**
      * Sets the motors to the updated output value.
      */
-    private void setOutput(){
+    private void setOutput() {
         this.forwardMotor.set(motorOutput);
         this.reverseMotor.set(motorOutput);
         this.latestSetTime = Timer.getFPGATimestamp();
     }
 
     /**
-     * Updates the motor output value. Uses a PID controller with limits on magnitude of velocity and
+     * Updates the motor output value. Uses a PID controller with limits on
+     * magnitude of velocity and
      * acceleration to protect mechanisms. Does not the motors to this output value.
      */
-    private void updateMotorOutput(){
+    private void updateMotorOutput() {
         double pidOutput = this.armController.calculate(getArmPosition(), this.goalPosition);
         double accelerationTolerance = getAccelerationTolerance();
         double accelerationConstrainedOutput = MathUtil.clamp(
-            pidOutput, 
-            this.motorOutput - accelerationTolerance, 
-            this.motorOutput + accelerationTolerance
-        );
+                pidOutput,
+                this.motorOutput - accelerationTolerance,
+                this.motorOutput + accelerationTolerance);
         double velocityConstrainedOutput = MathUtil.clamp(
-            accelerationConstrainedOutput, 
-            -LowerArmConstants.maxSpeed,
-            LowerArmConstants.maxSpeed
-        );
+                accelerationConstrainedOutput,
+                -LowerArmConstants.maxSpeed,
+                LowerArmConstants.maxSpeed);
         this.motorOutput = velocityConstrainedOutput;
         SmartDashboard.putNumber("Lower Arm Output", this.motorOutput);
     }
