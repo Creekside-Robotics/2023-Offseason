@@ -15,17 +15,17 @@ import frc.robot.subsystems.UpperArm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StowObjectIntake extends SequentialCommandGroup {
-  
+
   /**
    * Creates a new command which retracts the intake and stows the arms.
+   * 
    * @param lowerArm
    * @param upperArm
    * @param intake
    */
   public StowObjectIntake(LowerArm lowerArm, UpperArm upperArm, Intake intake) {
     addCommands(
-      new RetractArms(lowerArm, upperArm),
-      new RetractIntake(intake)
-    );
+        new RetractArms(lowerArm, upperArm),
+        new RetractIntake(intake));
   }
 }

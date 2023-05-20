@@ -20,9 +20,10 @@ import frc.robot.subsystems.UpperArm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeObject extends SequentialCommandGroup {
-  
+
   /**
    * Creates a new command which intakes and grabs an object.
+   * 
    * @param lowerArm
    * @param upperArm
    * @param intake
@@ -30,10 +31,9 @@ public class IntakeObject extends SequentialCommandGroup {
    */
   public IntakeObject(LowerArm lowerArm, UpperArm upperArm, Intake intake, Claw claw) {
     addCommands(
-      new ExtendIntake(intake),
-      new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
-      new WaitForObject(claw),
-      new WaitCommand(ClawConstants.openingDelay)
-    );
+        new ExtendIntake(intake),
+        new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
+        new WaitForObject(claw),
+        new WaitCommand(ClawConstants.openingDelay));
   }
 }
