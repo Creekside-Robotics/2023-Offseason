@@ -15,8 +15,17 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmPositions;
 import frc.robot.Constants.ClawConstants;
 import frc.robot.commands.arms.MoveArmsToState;
+import frc.robot.commands.arms.RetractArms;
 import frc.robot.commands.claw.SetClawMode;
 import frc.robot.commands.claw.WaitForObject;
+import frc.robot.commands.composite.FirstLevelScore;
+import frc.robot.commands.composite.IntakeObject;
+import frc.robot.commands.composite.PickupObject;
+import frc.robot.commands.composite.SecondLevelScore;
+import frc.robot.commands.composite.StowObjectIntake;
+import frc.robot.commands.composite.ThirdLevelScore;
+import frc.robot.commands.drivetrain.DriveToNearestGridPosition;
+import frc.robot.commands.drivetrain.DriveToNearestSubstationAxis;
 import frc.robot.commands.drivetrain.DriveToPosePID;
 import frc.robot.commands.drivetrain.ManualDrive;
 import frc.robot.commands.drivetrain.SetDrivetrainOutput;
@@ -40,125 +49,75 @@ import frc.robot.utils.DriverController;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-  private final Drivetrain drivetrain = new Drivetrain();
-  private final LowerArm lowerArm = new LowerArm();
-  private final UpperArm upperArm = new UpperArm();
-  private final Intake intake = new Intake();
-  private final Claw claw = new Claw();
+    // The robot's subsystems and commands are defined here...
+    private final Drivetrain drivetrain = new Drivetrain();
+    private final LowerArm lowerArm = new LowerArm();
+    private final UpperArm upperArm = new UpperArm();
+    private final Intake intake = new Intake();
+    private final Claw claw = new Claw();
 
-  private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
+    private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
-  public RobotContainer() {
-    // Configure the button bindings
-    configureButtonBindings();
-  }
+    /**
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
+    public RobotContainer() {
+        // Configure the button bindings
+        configureButtonBindings();
+    }
 
-  /**
-   * This command is used to configure command and button bindings.
-   * Button bindings are as follows:
-   * 1: Set drivetrain output vector to <0.2, 0, 0>
-   * 5: Drive robot to the axis of the far double substation
-   * 6: Drive robot to the axis of the close double substation
-   * 7: Reset robot pose
-   * 8: Drive robot to the nearest scoring location.
-   */
-  private void configureButtonBindings() {
-    Command manualDrive = new ManualDrive(drivetrain, mainController);
-    Command moveToNearestScoringPosition = new DriveToPosePID(
-        drivetrain,
-        mainController,
-        () -> drivetrain.getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).gridPositions),
-        new boolean[] { true, true, true },
-        new Pose2d(0.01, 0.01, new Rotation2d(0.01)),
-        false);
-    Command moveToNearestPickupPosition = new DriveToPosePID(
-        drivetrain,
-        mainController,
-        () -> drivetrain
-            .getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).substationPositions),
-        new boolean[] { false, true, true },
-        new Pose2d(0.01, 0.01, new Rotation2d(0.01)),
-        true);
+    /**
+     * This command is used to configure command and button bindings.
+     * Button bindings are as follows:
+     * 1: Set drivetrain output vector to <0.2, 0, 0>
+     * 5: Drive robot to the axis of the far double substation
+     * 6: Drive robot to the axis of the close double substation
+     * 7: Reset robot pose
+     * 8: Drive robot to the nearest scoring location.
+     */
+    private void configureButtonBindings() {
+        this.drivetrain.setDefaultCommand(new ManualDrive(drivetrain, mainController));
 
-    Command firstLevelScore = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerOne, ArmPositions.upperOne);
-    Command secondLevelScore = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerTwo, ArmPositions.upperTwo);
-    Command thirdLevelScore = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerThree, ArmPositions.upperThree);
-    Command armsToPickup = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerPickup, ArmPositions.upperPickup);
-    Command armsToIntake = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake);
-    Command stowArms = new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerStowed, ArmPositions.upperStowed);
+        this.mainController.buttons.get(1).whileTrue(new ParallelDeadlineGroup(
+                new PickupObject(lowerArm, upperArm, claw),
+                new DriveToNearestSubstationAxis(drivetrain, mainController)));
+        this.mainController.buttons.get(1).onFalse(new RetractArms(lowerArm, upperArm));
 
-    Command extendIntake = new ExtendIntake(intake);
-    Command retractIntake = new RetractIntake(intake);
+        this.mainController.buttons.get(2).whileTrue(new IntakeObject(lowerArm, upperArm, intake, claw));
+        this.mainController.buttons.get(2).onFalse(new StowObjectIntake(lowerArm, upperArm, intake));
 
-    Command waitForObject = new WaitForObject(claw);
-    Command openClaw = new SequentialCommandGroup(
-        new SetClawMode(claw, ClawMode.open),
-        new WaitCommand(ClawConstants.openingDelay));
+        this.mainController.buttons.get(7).whileTrue(new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw));
+        this.mainController.buttons.get(7).onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.drivetrain.setDefaultCommand(manualDrive);
+        this.mainController.buttons.get(9).whileTrue(new SecondLevelScore(drivetrain, lowerArm, upperArm, claw));
+        this.mainController.buttons.get(9).onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.mainController.buttons.get(1).whileTrue(new ParallelDeadlineGroup(
-        waitForObject,
-        armsToPickup,
-        moveToNearestPickupPosition));
-    this.mainController.buttons.get(1).onFalse(stowArms);
+        this.mainController.buttons.get(11).whileTrue(new FirstLevelScore(drivetrain, lowerArm, upperArm, claw));
+        this.mainController.buttons.get(11).onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.mainController.buttons.get(2).whileTrue(new SequentialCommandGroup(
-        extendIntake,
-        armsToIntake,
-        waitForObject));
-    this.mainController.buttons.get(2).onFalse(new SequentialCommandGroup(
-        stowArms,
-        retractIntake));
+        this.mainController.buttons.get(8).whileTrue(new SequentialCommandGroup(
+                new DriveToNearestGridPosition(drivetrain, mainController),
+                new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        this.mainController.buttons.get(8).onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.mainController.buttons.get(7).whileTrue(new SequentialCommandGroup(
-        thirdLevelScore,
-        openClaw));
-    this.mainController.buttons.get(7).onFalse(stowArms);
+        this.mainController.buttons.get(10).whileTrue(new SequentialCommandGroup(
+                new DriveToNearestGridPosition(drivetrain, mainController),
+                new SecondLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        this.mainController.buttons.get(10).onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.mainController.buttons.get(9).whileTrue(new SequentialCommandGroup(
-        secondLevelScore,
-        openClaw));
-    this.mainController.buttons.get(9).onFalse(stowArms);
+        this.mainController.buttons.get(12).whileTrue(new SequentialCommandGroup(
+                new DriveToNearestGridPosition(drivetrain, mainController),
+                new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        this.mainController.buttons.get(12).onFalse(new RetractArms(lowerArm, upperArm));
+    }
 
-    this.mainController.buttons.get(11).whileTrue(new SequentialCommandGroup(
-        firstLevelScore,
-        openClaw));
-    this.mainController.buttons.get(11).onFalse(stowArms);
-
-    this.mainController.buttons.get(8).whileTrue(new SequentialCommandGroup(
-        moveToNearestScoringPosition,
-        new ParallelDeadlineGroup(
-            new SequentialCommandGroup(thirdLevelScore, openClaw),
-            new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false))));
-    this.mainController.buttons.get(8).onFalse(stowArms);
-
-    this.mainController.buttons.get(10).whileTrue(new SequentialCommandGroup(
-        moveToNearestScoringPosition,
-        new ParallelDeadlineGroup(
-            new SequentialCommandGroup(secondLevelScore, openClaw),
-            new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false))));
-    this.mainController.buttons.get(10).onFalse(stowArms);
-
-    this.mainController.buttons.get(12).whileTrue(new SequentialCommandGroup(
-        moveToNearestScoringPosition,
-        new ParallelDeadlineGroup(
-            new SequentialCommandGroup(firstLevelScore, openClaw),
-            new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false))));
-    this.mainController.buttons.get(12).onFalse(stowArms);
-  }
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return null;
-  }
+    /**
+     * Use this to pass the autonomous command to the main {@link Robot} class.
+     *
+     * @return the command to run in autonomous
+     */
+    public Command getAutonomousCommand() {
+        // An ExampleCommand will run in autonomous
+        return null;
+    }
 }
