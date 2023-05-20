@@ -4,20 +4,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants.ArmPositions;
-import frc.robot.Constants.ClawConstants;
-import frc.robot.commands.arms.MoveArmsToState;
 import frc.robot.commands.arms.RetractArms;
-import frc.robot.commands.claw.SetClawMode;
-import frc.robot.commands.claw.WaitForObject;
 import frc.robot.commands.composite.FirstLevelScore;
 import frc.robot.commands.composite.IntakeObject;
 import frc.robot.commands.composite.PickupObject;
@@ -26,17 +16,12 @@ import frc.robot.commands.composite.StowObjectIntake;
 import frc.robot.commands.composite.ThirdLevelScore;
 import frc.robot.commands.drivetrain.DriveToNearestGridPosition;
 import frc.robot.commands.drivetrain.DriveToNearestSubstationAxis;
-import frc.robot.commands.drivetrain.DriveToPosePID;
 import frc.robot.commands.drivetrain.ManualDrive;
-import frc.robot.commands.drivetrain.SetDrivetrainOutput;
-import frc.robot.commands.intake.ExtendIntake;
-import frc.robot.commands.intake.RetractIntake;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LowerArm;
 import frc.robot.subsystems.UpperArm;
-import frc.robot.subsystems.Claw.ClawMode;
 import frc.robot.utils.DriverController;
 
 /**

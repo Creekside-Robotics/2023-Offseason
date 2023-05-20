@@ -18,9 +18,10 @@ import frc.robot.subsystems.Claw.ClawMode;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupObject extends SequentialCommandGroup {
-  
+
   /**
    * Creates a new command which picks up an object from the shelf.
+   * 
    * @param lowerArm
    * @param upperArm
    * @param claw
@@ -29,9 +30,8 @@ public class PickupObject extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveArmsToState(lowerArm, upperArm, 0, 0),
-      new SetClawMode(claw, ClawMode.sensorOpen),
-      new WaitCommand(ClawConstants.openingDelay)
-    );
+        new MoveArmsToState(lowerArm, upperArm, 0, 0),
+        new SetClawMode(claw, ClawMode.sensorOpen),
+        new WaitCommand(ClawConstants.openingDelay));
   }
 }

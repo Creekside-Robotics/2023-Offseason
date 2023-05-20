@@ -20,23 +20,22 @@ import frc.robot.subsystems.UpperArm;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ThirdLevelScore extends ParallelDeadlineGroup {
-  
-  /**
-   * Creates a commmand which scores on the third level.
-   * @param drivetrain
-   * @param lowerArm
-   * @param upperArm
-   * @param claw
-   */
-  public ThirdLevelScore(Drivetrain drivetrain, LowerArm lowerArm, UpperArm upperArm, Claw claw) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(
-      new SequentialCommandGroup(
-        new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerThree, ArmPositions.upperThree),
-        new OpenClaw(claw)
-      ),
-      new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false)
-    );
-  }
+
+    /**
+     * Creates a commmand which scores on the third level.
+     * 
+     * @param drivetrain
+     * @param lowerArm
+     * @param upperArm
+     * @param claw
+     */
+    public ThirdLevelScore(Drivetrain drivetrain, LowerArm lowerArm, UpperArm upperArm, Claw claw) {
+        // Add the deadline command in the super() call. Add other commands using
+        // addCommands().
+        super(
+                new SequentialCommandGroup(
+                        new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerThree, ArmPositions.upperThree),
+                        new OpenClaw(claw)),
+                new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false));
+    }
 }
