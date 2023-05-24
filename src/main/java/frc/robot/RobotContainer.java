@@ -5,9 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.arms.RetractArms;
+import frc.robot.commands.claw.CloseClaw;
 import frc.robot.commands.composite.FirstLevelScore;
 import frc.robot.commands.composite.IntakeObject;
 import frc.robot.commands.composite.PickupObject;
@@ -63,13 +66,17 @@ public class RobotContainer {
     private void configureButtonBindings() {
         this.drivetrain.setDefaultCommand(new ManualDrive(drivetrain, mainController));
 
-        this.mainController.buttons.get(1).whileTrue(new ParallelDeadlineGroup(
+        this.mainController.buttons.get(1).whileTrue(new ParallelCommandGroup(
                 new PickupObject(lowerArm, upperArm, claw),
-                new DriveToNearestSubstationAxis(drivetrain, mainController)));
-        this.mainController.buttons.get(1).onFalse(new RetractArms(lowerArm, upperArm));
+                //new DriveToNearestSubstationAxis(drivetrain, mainController)
+                new WaitCommand(1000)
+                ));
+        this.mainController.buttons.get(1).onFalse(new SequentialCommandGroup(
+          new CloseClaw(claw),
+          new RetractArms(lowerArm, upperArm)));
 
         this.mainController.buttons.get(2).whileTrue(new IntakeObject(lowerArm, upperArm, intake, claw));
-        this.mainController.buttons.get(2).onFalse(new StowObjectIntake(lowerArm, upperArm, intake));
+        this.mainController.buttons.get(2).onFalse(new StowObjectIntake(lowerArm, upperArm, intake, claw));
 
         this.mainController.buttons.get(7).whileTrue(new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw));
         this.mainController.buttons.get(7).onFalse(new RetractArms(lowerArm, upperArm));
@@ -92,7 +99,7 @@ public class RobotContainer {
 
         this.mainController.buttons.get(12).whileTrue(new SequentialCommandGroup(
                 new DriveToNearestGridPosition(drivetrain, mainController),
-                new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw)));
+                new FirstLevelScore(drivetrain, lowerArm, upperArm, claw)));
         this.mainController.buttons.get(12).onFalse(new RetractArms(lowerArm, upperArm));
     }
 

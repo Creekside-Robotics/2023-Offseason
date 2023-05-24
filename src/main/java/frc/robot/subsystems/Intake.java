@@ -20,7 +20,6 @@ public class Intake extends SubsystemBase {
   private DoubleSolenoid actuator;
 
   private double motorVelocity = 0;
-  private boolean extended = false;
 
   /**
    * Creates a new subsystem representing an intake on the robot. The intake has a
@@ -28,7 +27,7 @@ public class Intake extends SubsystemBase {
    */
   public Intake() {
     this.forwardMotor = new CANSparkMax(DeviceIds.intakeForwardMotor, MotorType.kBrushless);
-    this.forwardMotor.setInverted(false);
+    this.forwardMotor.setInverted(true);
     this.reverseMotor = new CANSparkMax(DeviceIds.intakeReverseMotor, MotorType.kBrushless);
     this.reverseMotor.setInverted(true);
     this.actuator = new DoubleSolenoid(
@@ -47,17 +46,15 @@ public class Intake extends SubsystemBase {
    */
   public void setIntakeMode(double motorVelocity, boolean intakeExtended) {
     this.motorVelocity = motorVelocity;
-    this.extended = intakeExtended;
-  };
-
-  @Override
-  public void periodic() {
-    if (extended) {
+    if (intakeExtended) {
       this.actuator.set(Value.kForward);
     } else {
       this.actuator.set(Value.kReverse);
     }
+  };
 
+  @Override
+  public void periodic() {
     this.forwardMotor.set(motorVelocity);
     this.reverseMotor.set(motorVelocity);
   }

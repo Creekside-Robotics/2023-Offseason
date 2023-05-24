@@ -24,7 +24,7 @@ public class DriveToNearestGridPosition extends DriveToPosePID {
             driverController, 
             () -> drivetrain.getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).gridPositions),
             new boolean[]{true, true, true}, 
-            new Pose2d(0.01, 0.01, new Rotation2d(0.01)), 
+            new Pose2d(0.02, 0.02, new Rotation2d(0.02)), 
             false
         );
     }

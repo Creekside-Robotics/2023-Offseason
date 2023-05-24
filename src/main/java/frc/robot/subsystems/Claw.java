@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DeviceIds;
 
@@ -18,7 +19,6 @@ public class Claw extends SubsystemBase {
   /** Creates a new Claw. */
   private DoubleSolenoid actuator;
   private ColorSensorV3 colorSensor;
-  private ClawMode mode = ClawMode.open;
 
   /**
    * Creates a new claw object with a double solenoid and color sensor.
@@ -66,12 +66,7 @@ public class Claw extends SubsystemBase {
    * @param mode ClawMode value representing hte state of the claw.
    */
   public void setClawMode(ClawMode mode) {
-    this.mode = mode;
-  }
-
-  @Override
-  public void periodic() {
-    switch (this.mode) {
+    switch (mode) {
       case open:
         this.actuator.set(Value.kReverse);
         break;
@@ -80,11 +75,15 @@ public class Claw extends SubsystemBase {
         break;
       case sensorOpen:
         this.actuator.set(Value.kReverse);
-        if (hasObject()) {
-          this.mode = ClawMode.closed;
-          break;
-        }
     }
+  }
+
+  @Override
+  public void periodic() {
+    RawColor color = this.colorSensor.getRawColor();
+    SmartDashboard.putNumber("Blue", color.blue);
+    SmartDashboard.putNumber("Green", color.green);
+    SmartDashboard.putNumber("Red", color.red);
   }
 
   /**

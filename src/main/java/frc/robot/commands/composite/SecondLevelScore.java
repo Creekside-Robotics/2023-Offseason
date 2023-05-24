@@ -36,6 +36,6 @@ public class SecondLevelScore extends ParallelDeadlineGroup {
                 new SequentialCommandGroup(
                         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerTwo, ArmPositions.upperTwo),
                         new OpenClaw(claw)),
-                new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false));
+                new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.10, 0, 0), false));
     }
 }

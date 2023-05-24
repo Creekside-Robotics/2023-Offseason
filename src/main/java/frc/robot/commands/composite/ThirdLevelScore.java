@@ -36,6 +36,6 @@ public class ThirdLevelScore extends ParallelDeadlineGroup {
                 new SequentialCommandGroup(
                         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerThree, ArmPositions.upperThree),
                         new OpenClaw(claw)),
-                new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.05, 0, 0), false));
+                new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.13, 0, 0), false));
     }
 }
