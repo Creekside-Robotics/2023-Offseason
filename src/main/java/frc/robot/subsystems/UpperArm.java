@@ -103,6 +103,6 @@ public class UpperArm extends Arm {
 
     @Override
     public boolean atSetpoint() {
-        return this.armController.atSetpoint();
+        return Math.abs(getArmPosition() - this.goalPosition) <  UpperArmConstants.tolerance;
     }
 }

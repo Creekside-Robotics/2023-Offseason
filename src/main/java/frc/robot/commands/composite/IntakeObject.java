@@ -5,11 +5,9 @@
 package frc.robot.commands.composite;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.ArmPositions;
-import frc.robot.Constants.ClawConstants;
 import frc.robot.commands.arms.MoveArmsToState;
-import frc.robot.commands.claw.WaitForObject;
+import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.intake.ExtendIntake;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Intake;
@@ -33,7 +31,6 @@ public class IntakeObject extends SequentialCommandGroup {
     addCommands(
         new ExtendIntake(intake),
         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
-        new WaitForObject(claw),
-        new WaitCommand(ClawConstants.openingDelay));
+        new OpenClaw(claw));
   }
 }

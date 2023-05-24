@@ -58,8 +58,8 @@ public final class Constants {
     public static int lowerArmEncoder = 0;
     public static int upperArmEncoder = 1;
 
-    public static int clawForward = 0;
-    public static int clawReverse = 1;
+    public static int clawForward = 1;
+    public static int clawReverse = 0;
     public static int intakePistonForward = 2;
     public static int intakePistonReverse = 3;
 
@@ -80,10 +80,10 @@ public final class Constants {
     public static double driveCurrentLimit = 20.0;
 
     public static double maxTranslationalSpeed = 3.0;
-    public static double maxRotationalSpeed = Math.PI / 2;
+    public static double maxRotationalSpeed = Math.PI;
 
-    public static double translationControllerPGain = 3.0;
-    public static double rotationControllerPGain = 3.0;
+    public static double translationControllerPGain = 5.0;
+    public static double rotationControllerPGain = 7.0;
 
     public static double frontLeftEncoderOffset = Math.toRadians(-354.46) + Math.PI;
     public static double frontRightEncoderOffset = Math.toRadians(-69.87) + Math.PI;
@@ -96,7 +96,7 @@ public final class Constants {
     public static double encoderOffset = -0.5;
 
     public static double proportionalGain = 3.0;
-    public static double derivativeGain = 0.0;
+    public static double derivativeGain = 0.1;
 
     public static double maxSpeed = 0.5;
     public static double maxAcceleration = 1.0;
@@ -108,8 +108,8 @@ public final class Constants {
     public static double encoderMultiplier = -1.0;
     public static double encoderOffset = -0.31;
 
-    public static double proportionalGain = 3.0;
-    public static double derivativeGain = 0.0;
+    public static double proportionalGain = 5.0;
+    public static double derivativeGain = 0.1;
 
     public static double maxSpeed = 0.5;
     public static double maxAcceleration = 1.0;
@@ -140,11 +140,11 @@ public final class Constants {
   }
 
   public static class IntakeConstants {
-    public static double intakeSpeed = 0.5;
-    public static double climbSpeed = 0.25;
-    public static double climbTime = 0.5;
-    public static double dropSpeed = -0.25;
-    public static double dropTime = 0.25;
+    public static double intakeSpeed = 0.75;
+    public static double climbSpeed = 0.75;
+    public static double climbTime = 1;
+    public static double dropSpeed = -0.75;
+    public static double dropTime = 0.75;
   }
 
   public static class ClawConstants {
