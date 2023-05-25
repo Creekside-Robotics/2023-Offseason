@@ -9,15 +9,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class SetDrivetrainOutput extends CommandBase {
-  /** Creates a new SetDrivetrainOutput. */
   private final Drivetrain drivetrain;
   private final ChassisSpeeds output;
   private final boolean fieldOriented;
 
   /**
    * Creates a new SetDrivetrain Output Command. The command sets the drivetrain
-   * to the outpur specified
-   * for the duration of the command.
+   * to the output specified for the duration of the command.
    * 
    * @param drivetrain    Drivetrain subsystem that will be controlled.
    * @param output        The ChassisSpeed object representing the motion vector
@@ -27,7 +25,6 @@ public class SetDrivetrainOutput extends CommandBase {
    *                      assumed that the vector is realtive to the robot.
    */
   public SetDrivetrainOutput(Drivetrain drivetrain, ChassisSpeeds output, boolean fieldOriented) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.output = output;
     this.fieldOriented = fieldOriented;

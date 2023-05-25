@@ -15,17 +15,18 @@ public class DriveToNearestSubstationAxis extends DriveToPosePID {
 
     /**
      * Creates a new command which drives to the nearest grid position.
+     * 
      * @param drivetrain
      * @param driverController
      */
-    public DriveToNearestSubstationAxis(Drivetrain drivetrain, DriverController driverController){
+    public DriveToNearestSubstationAxis(Drivetrain drivetrain, DriverController driverController) {
         super(
-            drivetrain, 
-            driverController, 
-            () -> drivetrain.getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).substationPositions),
-            new boolean[]{false, true, true}, 
-            new Pose2d(0.01, 0.01, new Rotation2d(0.01)), 
-            true
-        );
+                drivetrain,
+                driverController,
+                () -> drivetrain.getClosestPose(
+                        Constants.fieldConstantsMap.get(DriverStation.getAlliance()).substationPositions),
+                new boolean[] { false, true, true },
+                new Pose2d(0.01, 0.01, new Rotation2d(0.01)),
+                true);
     }
 }

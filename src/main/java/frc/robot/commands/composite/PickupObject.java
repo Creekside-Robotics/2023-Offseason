@@ -12,9 +12,6 @@ import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.LowerArm;
 import frc.robot.subsystems.UpperArm;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class PickupObject extends SequentialCommandGroup {
 
   /**
@@ -25,8 +22,6 @@ public class PickupObject extends SequentialCommandGroup {
    * @param claw
    */
   public PickupObject(LowerArm lowerArm, UpperArm upperArm, Claw claw) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerPickup, ArmPositions.upperPickup),
         new OpenClaw(claw));

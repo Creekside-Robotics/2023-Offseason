@@ -15,17 +15,18 @@ public class DriveToNearestGridPosition extends DriveToPosePID {
 
     /**
      * Creates a new command which drives to the nearest grid position.
+     * 
      * @param drivetrain
      * @param driverController
      */
-    public DriveToNearestGridPosition(Drivetrain drivetrain, DriverController driverController){
+    public DriveToNearestGridPosition(Drivetrain drivetrain, DriverController driverController) {
         super(
-            drivetrain, 
-            driverController, 
-            () -> drivetrain.getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).gridPositions),
-            new boolean[]{true, true, true}, 
-            new Pose2d(0.02, 0.02, new Rotation2d(0.02)), 
-            false
-        );
+                drivetrain,
+                driverController,
+                () -> drivetrain
+                        .getClosestPose(Constants.fieldConstantsMap.get(DriverStation.getAlliance()).gridPositions),
+                new boolean[] { true, true, true },
+                new Pose2d(0.02, 0.02, new Rotation2d(0.01)),
+                false);
     }
 }

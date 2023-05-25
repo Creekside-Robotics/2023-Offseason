@@ -16,7 +16,6 @@ import frc.robot.Constants.ArmPositions;
 import frc.robot.Constants.DeviceIds;
 import frc.robot.Constants.LowerArmConstants;
 
-/** Add your docs here. */
 public class LowerArm extends Arm {
     private CANSparkMax forwardMotor;
     private CANSparkMax reverseMotor;

@@ -24,7 +24,6 @@ public class SetIntakeMode extends InstantCommand {
     this.intake = intake;
     this.intakeVelocity = intakeVelocity;
     this.intakeExtended = intakeExtended;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.

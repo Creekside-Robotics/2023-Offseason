@@ -16,10 +16,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.DriverController;
 
 public class DriveToPosePID extends CommandBase {
-  /** Creates a new DriveToPosePID. */
-  private PIDController xController = new PIDController(DrivetrainConstants.translationControllerPGain, 0, 0);
-  private PIDController yController = new PIDController(DrivetrainConstants.translationControllerPGain, 0, 0);
-  private PIDController rotController = new PIDController(DrivetrainConstants.rotationControllerPGain, 0, 0);
+  private PIDController xController = new PIDController(DrivetrainConstants.translationControllerPGain, 0,
+      DrivetrainConstants.translationControllerDGain);
+  private PIDController yController = new PIDController(DrivetrainConstants.translationControllerPGain, 0,
+      DrivetrainConstants.translationControllerDGain);
+  private PIDController rotController = new PIDController(DrivetrainConstants.rotationControllerPGain, 0,
+      DrivetrainConstants.rotationControllerDGain);
 
   private Drivetrain drivetrain;
   private DriverController driverController;
@@ -48,7 +50,6 @@ public class DriveToPosePID extends CommandBase {
    */
   public DriveToPosePID(Drivetrain drivetrain, DriverController driverController, Pose2d pose, boolean[] usePID,
       Pose2d tolerance, boolean hold) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.driverController = driverController;
     this.poseSupplier = () -> pose;

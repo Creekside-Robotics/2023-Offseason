@@ -8,18 +8,21 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmPositions;
 import frc.robot.subsystems.Arm;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class MoveArmsToState extends SequentialCommandGroup {
-  /** Creates a new MoveArmToState. */
+
+  /**
+   * Creates a new MoveArmsToState command. The command moves the arms to the
+   * desired state.
+   * 
+   * @param lower         Lower Arm
+   * @param upper         Upper Arm
+   * @param lowerPosition Desired end position for the lower arm.
+   * @param upperPosition Desired end position for the upper arm.
+   */
   public MoveArmsToState(Arm lower, Arm upper, double lowerPosition, double upperPosition) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveToPosition(upper, ArmPositions.upperTransitional, true),
-      new MoveToPosition(lower, lowerPosition, true),
-      new MoveToPosition(upper, upperPosition, true)
-    );
+        new MoveToPosition(upper, ArmPositions.upperTransitional, true),
+        new MoveToPosition(lower, lowerPosition, true),
+        new MoveToPosition(upper, upperPosition, true));
   }
 }

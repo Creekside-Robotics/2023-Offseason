@@ -6,20 +6,20 @@ package frc.robot.commands.claw;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.ClawConstants;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Claw.ClawMode;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class CloseClaw extends SequentialCommandGroup {
-  /** Creates a new CloseClaw. */
+
+  /**
+   * Create a new command which closes the claw
+   * 
+   * @param claw
+   */
   public CloseClaw(Claw claw) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetClawMode(claw, ClawMode.closed),
-      new WaitCommand(1)
-    );
+        new SetClawMode(claw, ClawMode.closed),
+        new WaitCommand(ClawConstants.openingDelay));
   }
 }
