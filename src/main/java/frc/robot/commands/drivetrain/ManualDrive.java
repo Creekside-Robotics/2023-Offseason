@@ -13,9 +13,14 @@ public class ManualDrive extends CommandBase {
   private final Drivetrain drivetrain;
   private final DriverController controller;
 
-  /** Creates a new ManualDrive. */
+  /**
+   * Creates a new ManualDrive Command. This command sets drivetrain output to
+   * that determined by the controller.
+   * 
+   * @param drivetrain Drivetrain to control.
+   * @param controller Control to provide driver input.
+   */
   public ManualDrive(Drivetrain drivetrain, DriverController controller) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.controller = controller;
     addRequirements(this.drivetrain);

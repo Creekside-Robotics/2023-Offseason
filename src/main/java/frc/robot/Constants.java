@@ -82,13 +82,17 @@ public final class Constants {
     public static double maxTranslationalSpeed = 3.0;
     public static double maxRotationalSpeed = Math.PI;
 
-    public static double translationControllerPGain = 5.0;
-    public static double rotationControllerPGain = 7.0;
+    public static double translationControllerPGain = 6.0;
+    public static double translationControllerDGain = 0.5;
+    public static double rotationControllerPGain = 10.0;
+    public static double rotationControllerDGain = 0.5;
 
     public static double frontLeftEncoderOffset = Math.toRadians(-354.46) + Math.PI;
     public static double frontRightEncoderOffset = Math.toRadians(-69.87) + Math.PI;
     public static double backLeftEncoderOffset = Math.toRadians(-212.34);
     public static double backRightEncoderOffset = Math.toRadians(-312.53);
+
+    public static double pushAgainstWallSpeed = 0.15;
   }
 
   public static class LowerArmConstants {

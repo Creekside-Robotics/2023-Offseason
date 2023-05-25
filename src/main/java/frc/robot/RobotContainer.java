@@ -6,9 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.arms.RetractArms;
 import frc.robot.commands.claw.CloseClaw;
 import frc.robot.commands.composite.FirstLevelScore;
@@ -28,7 +26,7 @@ import frc.robot.subsystems.UpperArm;
 import frc.robot.utils.DriverController;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
+ * This class is where the bulk of the robot is declared. Since
  * Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in
  * the {@link Robot}
@@ -37,7 +35,7 @@ import frc.robot.utils.DriverController;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-    // The robot's subsystems and commands are defined here...
+    // The robot's subsystems and commands are defined here.
     private final Drivetrain drivetrain = new Drivetrain();
     private final LowerArm lowerArm = new LowerArm();
     private final UpperArm upperArm = new UpperArm();
@@ -56,24 +54,16 @@ public class RobotContainer {
 
     /**
      * This command is used to configure command and button bindings.
-     * Button bindings are as follows:
-     * 1: Set drivetrain output vector to <0.2, 0, 0>
-     * 5: Drive robot to the axis of the far double substation
-     * 6: Drive robot to the axis of the close double substation
-     * 7: Reset robot pose
-     * 8: Drive robot to the nearest scoring location.
      */
     private void configureButtonBindings() {
         this.drivetrain.setDefaultCommand(new ManualDrive(drivetrain, mainController));
 
         this.mainController.buttons.get(1).whileTrue(new ParallelCommandGroup(
                 new PickupObject(lowerArm, upperArm, claw),
-                //new DriveToNearestSubstationAxis(drivetrain, mainController)
-                new WaitCommand(1000)
-                ));
+                new DriveToNearestSubstationAxis(drivetrain, mainController)));
         this.mainController.buttons.get(1).onFalse(new SequentialCommandGroup(
-          new CloseClaw(claw),
-          new RetractArms(lowerArm, upperArm)));
+                new CloseClaw(claw),
+                new RetractArms(lowerArm, upperArm)));
 
         this.mainController.buttons.get(2).whileTrue(new IntakeObject(lowerArm, upperArm, intake, claw));
         this.mainController.buttons.get(2).onFalse(new StowObjectIntake(lowerArm, upperArm, intake, claw));

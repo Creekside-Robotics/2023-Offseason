@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ExtendIntake extends SequentialCommandGroup {
-  /** Creates a new ExtendIntake. */
+
+  /**
+   * Creates an new command which exents the intake on the robot.
+   * 
+   * @param intake Intake to extend.
+   */
   public ExtendIntake(Intake intake) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new SetIntakeMode(intake, IntakeConstants.dropSpeed, true),
         new WaitCommand(IntakeConstants.dropTime),

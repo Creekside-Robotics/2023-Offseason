@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmPositions;
+import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.arms.MoveArmsToState;
 import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.drivetrain.SetDrivetrainOutput;
@@ -16,9 +17,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LowerArm;
 import frc.robot.subsystems.UpperArm;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FirstLevelScore extends ParallelDeadlineGroup {
 
   /**
@@ -30,12 +28,10 @@ public class FirstLevelScore extends ParallelDeadlineGroup {
    * @param claw
    */
   public FirstLevelScore(Drivetrain drivetrain, LowerArm lowerArm, UpperArm upperArm, Claw claw) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
     super(
         new SequentialCommandGroup(
             new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerOne, ArmPositions.upperOne),
             new OpenClaw(claw)),
-        new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(0.10, 0, 0), false));
+        new SetDrivetrainOutput(drivetrain, new ChassisSpeeds(DrivetrainConstants.pushAgainstWallSpeed, 0, 0), false));
   }
 }

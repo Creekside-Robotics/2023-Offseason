@@ -8,9 +8,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Claw.ClawMode;
 
-/**
- * Creates a new SetClawMode object. This command sets the mode of the claw.
- */
 public class SetClawMode extends InstantCommand {
   private Claw claw;
   private ClawMode clawMode;
@@ -22,7 +19,6 @@ public class SetClawMode extends InstantCommand {
    * @param clawMode Mode to set the claw to.
    */
   public SetClawMode(Claw claw, ClawMode clawMode) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.claw = claw;
     this.clawMode = clawMode;
   }

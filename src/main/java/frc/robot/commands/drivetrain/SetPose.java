@@ -10,9 +10,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Drivetrain;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SetPose extends InstantCommand {
   private Drivetrain drivetrain;
   private Supplier<Pose2d> poseSupplier;
@@ -24,7 +21,6 @@ public class SetPose extends InstantCommand {
    * @param pose       Pose to set the drivetrain to.
    */
   public SetPose(Drivetrain drivetrain, Pose2d pose) {
-    // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.poseSupplier = () -> pose;
   }

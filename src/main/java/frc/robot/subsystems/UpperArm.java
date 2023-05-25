@@ -16,7 +16,6 @@ import frc.robot.Constants.ArmPositions;
 import frc.robot.Constants.DeviceIds;
 import frc.robot.Constants.UpperArmConstants;
 
-/** Add your docs here. */
 public class UpperArm extends Arm {
     private CANSparkMax motor;
 
@@ -103,6 +102,6 @@ public class UpperArm extends Arm {
 
     @Override
     public boolean atSetpoint() {
-        return Math.abs(getArmPosition() - this.goalPosition) <  UpperArmConstants.tolerance;
+        return Math.abs(getArmPosition() - this.goalPosition) < UpperArmConstants.tolerance;
     }
 }

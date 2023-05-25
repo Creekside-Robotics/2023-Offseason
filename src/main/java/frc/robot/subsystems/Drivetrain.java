@@ -155,7 +155,8 @@ public class Drivetrain extends SubsystemBase {
    */
   public void setDrivetrainOutput(ChassisSpeeds movementVector, boolean fieldOriented) {
     SwerveModuleState[] swerveModuleStates = drivetrainKinematics.toSwerveModuleStates(
-        fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(movementVector, this.getPose().getRotation()) : movementVector);
+        fieldOriented ? ChassisSpeeds.fromFieldRelativeSpeeds(movementVector, this.getPose().getRotation())
+            : movementVector);
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, DrivetrainConstants.AbsoluteMaxWheelVelocity);
 
     this.frontLeft.set(
