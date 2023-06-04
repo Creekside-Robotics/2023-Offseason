@@ -36,7 +36,7 @@ public class ManualDrive extends CommandBase {
   public void execute() {
     this.drivetrain.setDrivetrainOutput(
         this.controller.getDrivetrainOutput(),
-        true);
+        !this.controller.getRawButton(1));
   }
 
   // Called once the command ends or is interrupted.
