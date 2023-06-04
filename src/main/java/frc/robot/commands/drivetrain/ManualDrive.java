@@ -6,6 +6,7 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.utils.DriverController;
 
@@ -36,7 +37,7 @@ public class ManualDrive extends CommandBase {
   public void execute() {
     this.drivetrain.setDrivetrainOutput(
         this.controller.getDrivetrainOutput(),
-        !this.controller.getRawButton(1));
+        !this.controller.getRawButton(ControllerConstants.intake));
   }
 
   // Called once the command ends or is interrupted.

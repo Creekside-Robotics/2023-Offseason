@@ -66,6 +66,19 @@ public final class Constants {
     public static int driverController = 0;
   }
 
+  public static class ControllerConstants{
+    public static int autoPickup = 1;
+    public static int intake = 2;
+    
+    public static int firstScore = 11;
+    public static int secondScore = 9;
+    public static int thirdScore = 7;
+
+    public static int firstAuto = 12;
+    public static int secondAuto = 10;
+    public static int thirdAuto = 8;
+  }
+
   public static class DrivetrainConstants {
     public static double wheelBaseLength = 0.6985;
     public static double trackWidthLength = 0.6985;
