@@ -15,6 +15,7 @@ import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import com.swervedrivespecialties.swervelib.MotorType;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -62,7 +63,9 @@ public class Drivetrain extends SubsystemBase {
         getGyroRotation(),
         getModulePositions(),
         new Pose2d());
+
     SmartDashboard.putData("Field Display", field2d);
+    CameraServer.startAutomaticCapture();
   }
 
   /**
