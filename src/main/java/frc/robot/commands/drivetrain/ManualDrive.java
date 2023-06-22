@@ -35,9 +35,11 @@ public class ManualDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    boolean intakeDisabled = !this.controller.getRawButton(ControllerConstants.intake);
+
     this.drivetrain.setDrivetrainOutput(
         this.controller.getDrivetrainOutput(),
-        !this.controller.getRawButton(ControllerConstants.intake));
+        intakeDisabled);
   }
 
   // Called once the command ends or is interrupted.
