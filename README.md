@@ -13,10 +13,10 @@ Documentation for of the important libraries used in this project.
 ## Branch Protection Rules
 Certain branches are protected by rules that must be obeyed
 
-- `main` - All code changes must be merged via pull request from the created branch into `main` once the code has been succesfully tested on robot.
+- `main` - All code changes must be merged via pull request from the created branch into `main` once the code has been reviewed and passed CI.
 
 ## Releases
-Code that has been released with a tag has been heavily tested on the robot and is approved for competition use. During competition, unless in dire situation, code must come from a release and not the main branch. Each release will come with a drivers manual and source code.
+Code that has been released with a tag has been tested on the robot and is approved for competition use. During competition, unless in dire situation, code must come from a release and not the main branch. Each release will come with a drivers manual and source code.
 
 If you notice a bug or area for improvement in the code, please create an issue in this repository. 
 
