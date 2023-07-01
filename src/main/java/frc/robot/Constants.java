@@ -77,6 +77,12 @@ public final class Constants {
     public static int firstAuto = 12;
     public static int secondAuto = 10;
     public static int thirdAuto = 8;
+
+    public static int OpenClaw = 2;
+    public static int CloseClaw = 3;
+    public static int RetractArms = 4;
+    public static int ExtendIntake = 5;
+    public static int RetractIntake = 6;
   }
 
   public static class DrivetrainConstants {

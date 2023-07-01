@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.arms.RetractArms;
 import frc.robot.commands.claw.CloseClaw;
+import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.composite.FirstLevelScore;
 import frc.robot.commands.composite.IntakeObject;
 import frc.robot.commands.composite.PickupObject;
@@ -19,6 +20,8 @@ import frc.robot.commands.composite.ThirdLevelScore;
 import frc.robot.commands.drivetrain.DriveToNearestGridPosition;
 import frc.robot.commands.drivetrain.DriveToNearestSubstationAxis;
 import frc.robot.commands.drivetrain.ManualDrive;
+import frc.robot.commands.intake.ExtendIntake;
+import frc.robot.commands.intake.RetractIntake;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -44,7 +47,7 @@ public class RobotContainer {
   private final Claw claw = new Claw();
 
   private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
-
+  private final DriverController alternaController = new DriverController(Constants.DeviceIds.driverController);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -103,6 +106,19 @@ public class RobotContainer {
         new FirstLevelScore(drivetrain, lowerArm, upperArm, claw)));
     this.mainController.buttons.get(ControllerConstants.firstAuto)
         .onFalse(new RetractArms(lowerArm, upperArm));
+
+    this.alternaController.buttons.get(ControllerConstants.OpenClaw)
+        .whileTrue(new OpenClaw(claw));
+    this.alternaController.buttons.get(ControllerConstants.CloseClaw)
+        .whileTrue(new CloseClaw(claw));
+
+    this.alternaController.buttons.get(ControllerConstants.RetractArms)
+        .whileTrue(new RetractArms(lowerArm, upperArm));
+
+    this.alternaController.buttons.get(ControllerConstants.ExtendIntake)
+        .whileTrue(new ExtendIntake(intake));
+    this.alternaController.buttons.get(ControllerConstants.RetractIntake)
+        .whileTrue(new RetractIntake(intake));
   }
 
   /**
