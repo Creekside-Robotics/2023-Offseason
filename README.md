@@ -9,6 +9,12 @@ If you want however, you can develop in any environment that suites you, as long
 ## Documentation for WPILIB and other libraries
 Documentation for of the important libraries used in this project.
  - [WPILIB Documentation](https://docs.wpilib.org/en/stable/index.html) - This is the FRC provided control system for our robot. It is very important to understand how it works both software and hardware. Be sure to check out the [Command-Based](https://docs.wpilib.org/en/stable/docs/software/commandbased/index.html) section as that is the system that is used in this project.
+ - [Path Planner](https://github.com/mjansen4857/pathplanner/tree/v2023.4.2#pathplanner) - This is the library used to generate autonomous paths and routines for the robot.
+ - [Limelight](https://docs.limelightvision.io/en/latest/) For the offseason competitions we will be using limelight as a our primary vision system.
+ - We have various other libraries detailed in the vendor dependency folder. These include: REV Robotics, Swerve Drive Specialties, and Phoenix Hardware.
+
+## Projects 
+This repository has been linked to the [2023 Offseason](https://github.com/orgs/Creekside-Robotics/projects/1) project. This is used to manage issues, PRs, scheduling, milestones, and everything needed to get the project to completition. This feature provides a good high level view of everything going on, and should help you to better understand what is being worked on.
 
 ## Branch Protection Rules
 Certain branches are protected by rules that must be obeyed
@@ -17,13 +23,6 @@ Certain branches are protected by rules that must be obeyed
 
 ## Releases
 Code that has been released with a tag has been tested on the robot and is approved for competition use. During competition, unless in dire situation, code must come from a release and not the main branch. Each release will come with a drivers manual and source code.
-
-If you notice a bug or area for improvement in the code, please create an issue in this repository. 
-
-## Running Unit Tests
-Unit tests can be run from the command line by using the gradle test task.\
-If you are on Windows: `.\gradlew.bat clean test`\
-If you are on Linux: `.\gradlew clean test`
 
 ## Resolving Merge Conflicts
 
