@@ -64,6 +64,7 @@ public final class Constants {
     public static int intakePistonReverse = 3;
 
     public static int driverController = 0;
+    public static int alternateController = 1;
   }
 
   public static class ControllerConstants{
@@ -78,11 +79,11 @@ public final class Constants {
     public static int secondAuto = 10;
     public static int thirdAuto = 8;
 
-    public static int OpenClaw = 2;
-    public static int CloseClaw = 3;
-    public static int RetractArms = 4;
-    public static int ExtendIntake = 5;
-    public static int RetractIntake = 6;
+    public static int openClaw = 2;
+    public static int closeClaw = 3;
+    public static int retractArms = 4;
+    public static int extendIntake = 5;
+    public static int retractIntake = 6;
   }
 
   public static class DrivetrainConstants {
