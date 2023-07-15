@@ -107,17 +107,17 @@ public class RobotContainer {
     this.mainController.buttons.get(ControllerConstants.firstAuto)
         .onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.alternaController.buttons.get(ControllerConstants.OpenClaw)
+    this.alternaController.buttons.get(ControllerConstants.openClaw)
         .whileTrue(new OpenClaw(claw));
-    this.alternaController.buttons.get(ControllerConstants.CloseClaw)
+    this.alternaController.buttons.get(ControllerConstants.closeClaw)
         .whileTrue(new CloseClaw(claw));
 
-    this.alternaController.buttons.get(ControllerConstants.RetractArms)
+    this.alternaController.buttons.get(ControllerConstants.retractArms)
         .whileTrue(new RetractArms(lowerArm, upperArm));
 
-    this.alternaController.buttons.get(ControllerConstants.ExtendIntake)
+    this.alternaController.buttons.get(ControllerConstants.extendIntake)
         .whileTrue(new ExtendIntake(intake));
-    this.alternaController.buttons.get(ControllerConstants.RetractIntake)
+    this.alternaController.buttons.get(ControllerConstants.retractIntake)
         .whileTrue(new RetractIntake(intake));
   }
 
