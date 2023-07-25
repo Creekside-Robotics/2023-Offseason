@@ -47,7 +47,7 @@ public class RobotContainer {
   private final Claw claw = new Claw();
 
   private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
-  private final DriverController alternaController = new DriverController(Constants.DeviceIds.driverController);
+  private final DriverController alternateController = new DriverController(Constants.DeviceIds.alternateController);
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -107,17 +107,17 @@ public class RobotContainer {
     this.mainController.buttons.get(ControllerConstants.firstAuto)
         .onFalse(new RetractArms(lowerArm, upperArm));
 
-    this.alternaController.buttons.get(ControllerConstants.openClaw)
+    this.alternateController.buttons.get(ControllerConstants.openClaw)
         .whileTrue(new OpenClaw(claw));
-    this.alternaController.buttons.get(ControllerConstants.closeClaw)
+    this.alternateController.buttons.get(ControllerConstants.closeClaw)
         .whileTrue(new CloseClaw(claw));
 
-    this.alternaController.buttons.get(ControllerConstants.retractArms)
+    this.alternateController.buttons.get(ControllerConstants.retractArms)
         .whileTrue(new RetractArms(lowerArm, upperArm));
 
-    this.alternaController.buttons.get(ControllerConstants.extendIntake)
+    this.alternateController.buttons.get(ControllerConstants.extendIntake)
         .whileTrue(new ExtendIntake(intake));
-    this.alternaController.buttons.get(ControllerConstants.retractIntake)
+    this.alternateController.buttons.get(ControllerConstants.retractIntake)
         .whileTrue(new RetractIntake(intake));
   }
 
