@@ -173,6 +173,7 @@ public final class Constants {
 
   public static class ClawConstants {
     public static double openingDelay = 0.25;
+    public static int threshholdObjectDistance = 8;
   }
 
   public static abstract class FieldConstants {
