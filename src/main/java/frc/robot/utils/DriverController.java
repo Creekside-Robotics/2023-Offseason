@@ -10,10 +10,11 @@ import java.util.Map;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DrivetrainConstants;
 
-/** 
+/**
  * DriveController serves as an extention to the typical Joystick
  * with additional support for commonly used functions.
  */
@@ -21,7 +22,9 @@ public class DriverController extends Joystick {
     public Map<Integer, JoystickButton> buttons = new HashMap<Integer, JoystickButton>();
 
     /**
-     * Creates a new drive controller, extends the Joystick class with additional functionality.
+     * Creates a new drive controller, extends the Joystick class with additional
+     * functionality.
+     * 
      * @param port Port number of the controller (start at 0)
      */
     public DriverController(int port) {
@@ -29,7 +32,7 @@ public class DriverController extends Joystick {
         this.generateButtons();
     }
 
-    private void generateButtons(){
+    private void generateButtons() {
         buttons.put(1, new JoystickButton(this, 1));
         buttons.put(2, new JoystickButton(this, 2));
         buttons.put(3, new JoystickButton(this, 3));
@@ -47,22 +50,25 @@ public class DriverController extends Joystick {
 
     /**
      * Quick way to get the drivetrain output determined by the controller
-     * @return A 3D Pose vector <xVel, yVel, rotVel> in the format of the WPILIB ChassisSpeeds class, factors alliance color
+     * 
+     * @return A 3D Pose vector <xVel, yVel, rotVel> in the format of the WPILIB
+     *         ChassisSpeeds class, factors alliance color
      */
-    public ChassisSpeeds getDrivetrainOutput(){
-        switch(DriverStation.getAlliance()){
+    public ChassisSpeeds getDrivetrainOutput(boolean fieldOriented) {
+        double controllerThrottle = Math.abs((this.getThrottle() - 1.0) / 2.0);
+        Alliance robotAlliance = (fieldOriented) ? DriverStation.getAlliance() : Alliance.Blue;
+
+        switch (robotAlliance) {
             case Blue:
                 return new ChassisSpeeds(
-                    -this.getY() * DrivetrainConstants.maxTranslationalSpeed,
-                    -this.getX() * DrivetrainConstants.maxTranslationalSpeed,
-                    -this.getTwist() * DrivetrainConstants.maxRotationalSpeed
-                );
+                        -this.getY() * DrivetrainConstants.maxTranslationalSpeed * controllerThrottle,
+                        -this.getX() * DrivetrainConstants.maxTranslationalSpeed * controllerThrottle,
+                        -this.getTwist() * DrivetrainConstants.maxRotationalSpeed * controllerThrottle);
             case Red:
                 return new ChassisSpeeds(
-                    this.getY() * DrivetrainConstants.maxTranslationalSpeed,
-                    this.getX() * DrivetrainConstants.maxTranslationalSpeed,
-                    -this.getTwist() * DrivetrainConstants.maxRotationalSpeed
-                );
+                        this.getY() * DrivetrainConstants.maxTranslationalSpeed * controllerThrottle,
+                        this.getX() * DrivetrainConstants.maxTranslationalSpeed * controllerThrottle,
+                        -this.getTwist() * DrivetrainConstants.maxRotationalSpeed * controllerThrottle);
             default:
                 return new ChassisSpeeds();
         }

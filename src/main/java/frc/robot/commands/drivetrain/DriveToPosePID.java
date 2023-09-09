@@ -110,7 +110,7 @@ public class DriveToPosePID extends CommandBase {
   @Override
   public void execute() {
     ChassisSpeeds pidOutput = getPIDChassisSpeeds();
-    ChassisSpeeds driverOutput = this.driverController.getDrivetrainOutput();
+    ChassisSpeeds driverOutput = this.driverController.getDrivetrainOutput(true);
     this.drivetrain.setDrivetrainOutput(fuseOutputSpeeds(pidOutput, driverOutput), true);
   }
 
