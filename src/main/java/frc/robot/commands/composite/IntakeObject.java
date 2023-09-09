@@ -7,7 +7,6 @@ package frc.robot.commands.composite;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ArmPositions;
 import frc.robot.commands.arms.MoveArmsToState;
-import frc.robot.commands.claw.CloseOnObject;
 import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.intake.ExtendIntake;
 import frc.robot.subsystems.Claw;
@@ -29,7 +28,6 @@ public class IntakeObject extends SequentialCommandGroup {
     addCommands(
         new ExtendIntake(intake),
         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
-        new OpenClaw(claw),
-        new CloseOnObject(claw));
+        new OpenClaw(claw));
   }
 }
