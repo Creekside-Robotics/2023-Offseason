@@ -38,7 +38,7 @@ public class ManualDrive extends CommandBase {
     boolean intakeDisabled = !this.controller.getRawButton(ControllerConstants.intake);
 
     this.drivetrain.setDrivetrainOutput(
-        this.controller.getDrivetrainOutput(),
+        this.controller.getDrivetrainOutput(intakeDisabled),
         intakeDisabled);
   }
 
