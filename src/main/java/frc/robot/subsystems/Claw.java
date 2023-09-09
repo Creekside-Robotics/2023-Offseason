@@ -4,18 +4,15 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DeviceIds;
 
 public class Claw extends SubsystemBase {
   /** Creates a new Claw. */
   private DoubleSolenoid actuator;
-  private ColorSensorV3 colorSensor;
 
   /**
    * Creates a new claw object with a double solenoid and color sensor.
@@ -25,7 +22,6 @@ public class Claw extends SubsystemBase {
         PneumaticsModuleType.CTREPCM,
         DeviceIds.clawForward,
         DeviceIds.clawReverse);
-    this.colorSensor = new ColorSensorV3(Port.kOnboard);
   }
 
   /**
@@ -42,15 +38,6 @@ public class Claw extends SubsystemBase {
         this.actuator.set(Value.kForward);
         break;
     }
-  }
-
-  /**
-   * Method returns how far away from the claw an object is.
-   * 
-   * @return Distance away from the claw in centimeters. Between 1cm and 10cm.
-   */
-  public int getDistanceFromClaw() {
-    return this.colorSensor.getProximity();
   }
 
   @Override
