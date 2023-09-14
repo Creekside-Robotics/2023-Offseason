@@ -75,37 +75,37 @@ public class RobotContainer {
         .onFalse(new StowObjectIntake(lowerArm, upperArm, intake, claw));
 
     this.mainController.buttons.get(ControllerConstants.thirdScore)
-        .whileTrue(new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw));
+        .whileTrue(new ThirdLevelScore(drivetrain, lowerArm, upperArm));
     this.mainController.buttons.get(ControllerConstants.thirdScore)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.secondScore)
-        .whileTrue(new SecondLevelScore(drivetrain, lowerArm, upperArm, claw));
+        .whileTrue(new SecondLevelScore(drivetrain, lowerArm, upperArm));
     this.mainController.buttons.get(ControllerConstants.secondScore)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.firstScore)
-        .whileTrue(new FirstLevelScore(drivetrain, lowerArm, upperArm, claw));
+        .whileTrue(new FirstLevelScore(drivetrain, lowerArm, upperArm));
     this.mainController.buttons.get(ControllerConstants.firstScore)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.thirdAuto).whileTrue(new SequentialCommandGroup(
         new DriveToNearestGridPosition(drivetrain, mainController),
-        new ThirdLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        new ThirdLevelScore(drivetrain, lowerArm, upperArm)));
     this.mainController.buttons.get(ControllerConstants.thirdAuto)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.secondAuto).whileTrue(new SequentialCommandGroup(
         new DriveToNearestGridPosition(drivetrain, mainController),
-        new SecondLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        new SecondLevelScore(drivetrain, lowerArm, upperArm)));
     this.mainController.buttons.get(ControllerConstants.secondAuto)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.firstAuto).whileTrue(new SequentialCommandGroup(
         new DriveToNearestGridPosition(drivetrain, mainController),
-        new FirstLevelScore(drivetrain, lowerArm, upperArm, claw)));
+        new FirstLevelScore(drivetrain, lowerArm, upperArm)));
     this.mainController.buttons.get(ControllerConstants.firstAuto)
-        .onFalse(new RetractArms(lowerArm, upperArm));
+        .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
     this.alternateController.buttons.get(ControllerConstants.openClaw)
         .whileTrue(new OpenClaw(claw));
