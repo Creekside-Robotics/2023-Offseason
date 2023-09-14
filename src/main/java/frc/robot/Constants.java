@@ -132,21 +132,21 @@ public final class Constants {
     public static double encoderMultiplier = -1.0;
     public static double encoderOffset = -0.31;
 
-    public static double proportionalGain = 5.0;
-    public static double derivativeGain = 0.1;
+    public static double proportionalGain = 10.0;
+    public static double derivativeGain = 0.2;
 
-    public static double maxSpeed = 0.5;
-    public static double maxAcceleration = 1.0;
+    public static double maxSpeed = 0.8;
+    public static double maxAcceleration = 2.0;
 
     public static double tolerance = 0.01;
   }
 
   public static class ArmPositions {
-    public static double lowerThree = 0.262;
-    public static double upperThree = -0.239;
+    public static double lowerThree = 0.255;
+    public static double upperThree = -0.165;
 
-    public static double lowerTwo = 0.049;
-    public static double upperTwo = 0.042;
+    public static double lowerTwo = 0.062;
+    public static double upperTwo = 0.065;
 
     public static double lowerOne = -0.1108;
     public static double upperOne = 0.1130;
