@@ -143,7 +143,7 @@ public final class Constants {
 
   public static class ArmPositions {
     public static double lowerThree = 0.255;
-    public static double upperThree = -0.165;
+    public static double upperThree = -0.166;
 
     public static double lowerTwo = 0.062;
     public static double upperTwo = 0.065;
