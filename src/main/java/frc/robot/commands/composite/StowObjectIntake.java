@@ -29,7 +29,6 @@ public class StowObjectIntake extends SequentialCommandGroup {
         new OpenClaw(claw),
         new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
         new CloseClaw(claw),
-        new RetractArms(lowerArm, upperArm)
-    );
+        new RetractArms(lowerArm, upperArm));
   }
 }

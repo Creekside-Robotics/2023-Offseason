@@ -6,10 +6,14 @@ package frc.robot;
 
 import java.util.Map;
 
+import com.pathplanner.lib.auto.PIDConstants;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -67,10 +71,10 @@ public final class Constants {
     public static int alternateController = 1;
   }
 
-  public static class ControllerConstants{
+  public static class ControllerConstants {
     public static int autoPickup = 1;
     public static int intake = 2;
-    
+
     public static int firstScore = 11;
     public static int secondScore = 9;
     public static int thirdScore = 7;
@@ -112,6 +116,9 @@ public final class Constants {
     public static double backLeftEncoderOffset = Math.toRadians(-212.34);
     public static double backRightEncoderOffset = Math.toRadians(-312.53);
 
+    public static Vector<N3> stateStandardDeviation = VecBuilder.fill(0.02, 0.02, Math.PI / 30.0);
+    public static Vector<N3> visionStandardDeviation = VecBuilder.fill(0.8, 0.8, Math.PI / 2.0);
+
     public static double pushAgainstWallSpeed = 0.15;
   }
 
@@ -119,11 +126,11 @@ public final class Constants {
     public static double encoderMultiplier = 1.0;
     public static double encoderOffset = -0.5;
 
-    public static double proportionalGain = 3.0;
-    public static double derivativeGain = 0.1;
+    public static double proportionalGain = 5.0;
+    public static double derivativeGain = 0.0;
 
-    public static double maxSpeed = 0.5;
-    public static double maxAcceleration = 1.0;
+    public static double maxSpeed = 0.8;
+    public static double maxAcceleration = 3.0;
 
     public static double tolerance = 0.01;
   }
@@ -132,11 +139,11 @@ public final class Constants {
     public static double encoderMultiplier = -1.0;
     public static double encoderOffset = -0.31;
 
-    public static double proportionalGain = 10.0;
-    public static double derivativeGain = 0.2;
+    public static double proportionalGain = 5.0;
+    public static double derivativeGain = 0.0;
 
     public static double maxSpeed = 0.8;
-    public static double maxAcceleration = 2.0;
+    public static double maxAcceleration = 3.0;
 
     public static double tolerance = 0.01;
   }
@@ -178,6 +185,9 @@ public final class Constants {
   public static class AutoConstants {
     public static double maxVelocity = 4;
     public static double maxAcceleration = 3;
+
+    public static PIDConstants translationConstants = new PIDConstants(5.0, 0.0, 0.0);
+    public static PIDConstants rotationConstants = new PIDConstants(5.0, 0.0, 0.0);
   }
 
   public static abstract class FieldConstants {

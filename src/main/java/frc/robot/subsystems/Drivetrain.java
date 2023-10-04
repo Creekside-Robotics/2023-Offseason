@@ -62,7 +62,9 @@ public class Drivetrain extends SubsystemBase {
         drivetrainKinematics,
         getGyroRotation(),
         getModulePositions(),
-        new Pose2d());
+        new Pose2d(),
+        DrivetrainConstants.stateStandardDeviation,
+        DrivetrainConstants.visionStandardDeviation);
 
     SmartDashboard.putData("Field Display", field2d);
     CameraServer.startAutomaticCapture();
