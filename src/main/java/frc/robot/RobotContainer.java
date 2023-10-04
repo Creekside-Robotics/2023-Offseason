@@ -4,6 +4,15 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.PIDConstants;
+import com.pathplanner.lib.auto.SwerveAutoBuilder;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -12,7 +21,6 @@ import frc.robot.commands.arms.RetractArms;
 import frc.robot.commands.claw.CloseClaw;
 import frc.robot.commands.claw.OpenClaw;
 import frc.robot.commands.composite.FirstLevelScore;
-import frc.robot.commands.composite.IntakeObject;
 import frc.robot.commands.composite.PickupObject;
 import frc.robot.commands.composite.SecondLevelScore;
 import frc.robot.commands.composite.StowObjectIntake;
@@ -48,12 +56,48 @@ public class RobotContainer {
 
   private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
   private final DriverController alternateController = new DriverController(Constants.DeviceIds.alternateController);
+  
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  /**
+   * Builds autoCommand based on the pathgroup provided.
+   * 
+   * @param pathName Name of pathplanner file
+   * @return Full Auto command
+   */
+  public Command buildAutoCommand(String pathName){
+    ArrayList<PathPlannerTrajectory> pathGroup = 
+        (ArrayList<PathPlannerTrajectory>) PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
+    
+    HashMap<String, Command> eventMap = new HashMap<>();
+    eventMap.put("Score", new ThirdLevelScore(drivetrain, lowerArm, upperArm));
+    eventMap.put("Retract", new SequentialCommandGroup(
+        new OpenClaw(claw),
+        new RetractArms(lowerArm, upperArm)
+    ));
+    eventMap.put("Intake", new ExtendIntake(intake));
+    eventMap.put("Index", new SequentialCommandGroup(
+        new RetractIntake(intake),
+        new StowObjectIntake(lowerArm, upperArm, intake, claw)
+    ));
+
+    SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
+        drivetrain::getPose,
+        drivetrain::setDrivetrainPose, 
+        new PIDConstants(5.0, 0.0, 0.0), 
+        new PIDConstants(5.0, 0.0, 0.0), 
+        drivetrain::setDrivetrainSpeedsAuto, 
+        eventMap, 
+        drivetrain
+    );
+
+    return autoBuilder.fullAuto(pathGroup);
   }
 
   /**
@@ -70,9 +114,12 @@ public class RobotContainer {
         new RetractArms(lowerArm, upperArm)));
 
     this.mainController.buttons.get(ControllerConstants.intake)
-        .whileTrue(new IntakeObject(lowerArm, upperArm, intake, claw));
+        .whileTrue(new ExtendIntake(intake));
     this.mainController.buttons.get(ControllerConstants.intake)
-        .onFalse(new StowObjectIntake(lowerArm, upperArm, intake, claw));
+        .onFalse(new SequentialCommandGroup(
+            new RetractIntake(intake),
+            new StowObjectIntake(lowerArm, upperArm, intake, claw)
+        ));
 
     this.mainController.buttons.get(ControllerConstants.thirdScore)
         .whileTrue(new ThirdLevelScore(drivetrain, lowerArm, upperArm));

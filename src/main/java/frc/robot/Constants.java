@@ -175,6 +175,11 @@ public final class Constants {
     public static double openingDelay = 0.25;
   }
 
+  public static class AutoConstants {
+    public static double maxVelocity = 4;
+    public static double maxAcceleration = 3;
+  }
+
   public static abstract class FieldConstants {
     public Pose2d[] gridPositions;
     public Pose2d[] substationPositions;

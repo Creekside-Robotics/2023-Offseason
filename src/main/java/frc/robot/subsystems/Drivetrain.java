@@ -150,6 +150,16 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
+   * Sets the drivetrain to the desired kinematic state (robot-oriented)
+   * 
+   * @param movementVector Movement vector <xVel, yVel, rotVel>, defined using
+   *                       ChassisSpeeds object
+   */
+  public void setDrivetrainSpeedsAuto(ChassisSpeeds movementVector) {
+    setDrivetrainOutput(movementVector, false);
+  }
+
+  /**
    * Sets the drivetrain to the desired kinematic state
    * 
    * @param movementVector Movement vector <xVel, yVel, rotVel>, defined using
