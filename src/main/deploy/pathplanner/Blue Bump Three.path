@@ -64,10 +64,10 @@
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
         "names": [],
-        "executionBehavior": "parallel",
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
@@ -99,65 +99,15 @@
     },
     {
       "anchorPoint": {
-        "x": 7.084753887817635,
-        "y": 2.1875346567594547
+        "x": 7.080007433717909,
+        "y": 2.1510526026418786
       },
       "prevControl": {
-        "x": 7.151709187139305,
-        "y": 1.520077172533595
-      },
-      "nextControl": {
-        "x": 7.151709187139305,
-        "y": 1.520077172533595
-      },
-      "holonomicAngle": 90.0,
-      "isReversal": true,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 5.602951313237153,
-        "y": 0.9321227944781477
-      },
-      "prevControl": {
-        "x": 6.676643382518492,
-        "y": 1.211730104186831
-      },
-      "nextControl": {
-        "x": 4.226277647546351,
-        "y": 0.5736140273711671
-      },
-      "holonomicAngle": 180.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 1.802758381903169,
-        "y": 1.0898666520052194
-      },
-      "prevControl": {
-        "x": 3.0503688914354568,
-        "y": 0.8747613917410315
+        "x": 7.0513267323493505,
+        "y": 1.4770561204807569
       },
       "nextControl": null,
-      "holonomicAngle": 180.0,
+      "holonomicAngle": 90.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
@@ -175,12 +125,6 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 0.0,
-      "names": [
-        "Extend Arm"
-      ]
-    },
-    {
       "position": 0.5909090909090909,
       "names": [
         "Run Intake"
@@ -189,15 +133,7 @@
     {
       "position": 1.0000000000000002,
       "names": [
-        "Close Intake",
-        "Extend Arms"
-      ]
-    },
-    {
-      "position": 2.0,
-      "names": [
-        "Open Claw",
-        "Retract Arms"
+        "Close Intake"
       ]
     },
     {
@@ -207,14 +143,7 @@
       ]
     },
     {
-      "position": 3.981818181818183,
-      "names": [
-        "Close Intake",
-        "Extend Arms"
-      ]
-    },
-    {
-      "position": 6.0,
+      "position": 4.0,
       "names": [
         "Open Claw",
         "Retract Arms"

@@ -16,8 +16,11 @@
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "Score",
+          "Retract"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
@@ -49,41 +52,44 @@
     },
     {
       "anchorPoint": {
-        "x": 14.766435400491552,
-        "y": 4.41682801075799
+        "x": 14.748181749884626,
+        "y": 4.403295567154515
       },
       "prevControl": {
-        "x": 13.332400332063633,
-        "y": 4.8470385312863655
+        "x": 13.802602253091829,
+        "y": 4.629105596239362
       },
       "nextControl": {
-        "x": 13.332400332063633,
-        "y": 4.8470385312863655
+        "x": 13.802602253091829,
+        "y": 4.629105596239362
       },
-      "holonomicAngle": 0.0,
+      "holonomicAngle": 0,
       "isReversal": true,
       "velOverride": null,
       "isLocked": false,
-      "isStopPoint": false,
+      "isStopPoint": true,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "Score",
+          "Retract"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
     },
     {
       "anchorPoint": {
-        "x": 11.382112639001663,
-        "y": 4.77533677786497
+        "x": 12.06668765450207,
+        "y": 4.685558103510574
       },
       "prevControl": {
-        "x": 12.54619480106218,
-        "y": 4.814797190138208
+        "x": 13.230769816562587,
+        "y": 4.725018515783812
       },
       "nextControl": {
-        "x": 10.536031948629192,
-        "y": 4.746656076496412
+        "x": 11.2206069641296,
+        "y": 4.656877402142015
       },
       "holonomicAngle": 180.0,
       "isReversal": false,
@@ -106,65 +112,17 @@
         "x": 9.51786705004537,
         "y": 4.259084153230918
       },
-      "nextControl": {
-        "x": 9.51786705004537,
-        "y": 4.259084153230918
-      },
-      "holonomicAngle": 270.0,
-      "isReversal": true,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 11.382112639001663,
-        "y": 4.789677128549249
-      },
-      "prevControl": {
-        "x": 10.536031948629192,
-        "y": 4.717975375127852
-      },
-      "nextControl": {
-        "x": 12.60906568910341,
-        "y": 4.893656200591771
-      },
-      "holonomicAngle": 0.0,
-      "isReversal": false,
-      "velOverride": null,
-      "isLocked": false,
-      "isStopPoint": false,
-      "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
-        "waitBehavior": "none",
-        "waitTime": 0
-      }
-    },
-    {
-      "anchorPoint": {
-        "x": 14.780775751175833,
-        "y": 4.402487660073711
-      },
-      "prevControl": {
-        "x": 13.318059981379355,
-        "y": 4.674954323075015
-      },
       "nextControl": null,
-      "holonomicAngle": 0.0,
+      "holonomicAngle": 270.0,
       "isReversal": false,
       "velOverride": null,
       "isLocked": false,
       "isStopPoint": false,
       "stopEvent": {
-        "names": [],
-        "executionBehavior": "parallel",
+        "names": [
+          "Index"
+        ],
+        "executionBehavior": "sequential",
         "waitBehavior": "none",
         "waitTime": 0
       }
@@ -175,50 +133,21 @@
   "isReversed": null,
   "markers": [
     {
-      "position": 0.0,
-      "names": [
-        "Extend Arm",
-        "Open Claw"
-      ]
-    },
-    {
       "position": 0.5909090909090909,
       "names": [
-        "Run Intake"
+        "Intake"
       ]
     },
     {
-      "position": 1.0000000000000002,
+      "position": 1.0,
       "names": [
-        "Close Intake",
-        "Extend Arms"
+        "Index"
       ]
     },
     {
-      "position": 2.0,
+      "position": 2.9818181818181824,
       "names": [
-        "Open Claw",
-        "Retract Arms"
-      ]
-    },
-    {
-      "position": 2.999999999999998,
-      "names": [
-        "Run Intake"
-      ]
-    },
-    {
-      "position": 3.981818181818183,
-      "names": [
-        "Close Intake",
-        "Extend Arms"
-      ]
-    },
-    {
-      "position": 6.0,
-      "names": [
-        "Open Claw",
-        "Retract Arms"
+        "Intake"
       ]
     }
   ]

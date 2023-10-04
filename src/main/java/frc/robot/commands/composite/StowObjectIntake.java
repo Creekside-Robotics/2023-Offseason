@@ -5,9 +5,11 @@
 package frc.robot.commands.composite;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.ArmPositions;
+import frc.robot.commands.arms.MoveArmsToState;
 import frc.robot.commands.arms.RetractArms;
 import frc.robot.commands.claw.CloseClaw;
-import frc.robot.commands.intake.RetractIntake;
+import frc.robot.commands.claw.OpenClaw;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LowerArm;
@@ -16,7 +18,7 @@ import frc.robot.subsystems.UpperArm;
 public class StowObjectIntake extends SequentialCommandGroup {
 
   /**
-   * Creates a new command which retracts the intake and stows the arms.
+   * Creates a new command which stows the object collected by the intake.
    * 
    * @param lowerArm
    * @param upperArm
@@ -24,8 +26,10 @@ public class StowObjectIntake extends SequentialCommandGroup {
    */
   public StowObjectIntake(LowerArm lowerArm, UpperArm upperArm, Intake intake, Claw claw) {
     addCommands(
+        new OpenClaw(claw),
+        new MoveArmsToState(lowerArm, upperArm, ArmPositions.lowerIntake, ArmPositions.upperIntake),
         new CloseClaw(claw),
-        new RetractArms(lowerArm, upperArm),
-        new RetractIntake(intake));
+        new RetractArms(lowerArm, upperArm)
+    );
   }
 }
