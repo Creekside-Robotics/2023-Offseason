@@ -12,6 +12,8 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -57,12 +59,15 @@ public class RobotContainer {
     private final DriverController mainController = new DriverController(Constants.DeviceIds.driverController);
     private final DriverController alternateController = new DriverController(Constants.DeviceIds.alternateController);
 
+    private final SendableChooser<Command> commandChooser = new SendableChooser<>();
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
         // Configure the button bindings
         configureButtonBindings();
+        configureAutoCommands();
     }
 
     /**
@@ -95,6 +100,15 @@ public class RobotContainer {
                 drivetrain);
 
         return autoBuilder.fullAuto(pathGroup);
+    }
+
+    /**
+     * This command configures auto-commands and displays for driver to choose.
+     */
+    private void configureAutoCommands() {
+        this.commandChooser.setDefaultOption("None", null);
+        this.commandChooser.addOption("Red Three", buildAutoCommand("Red Three"));
+        SmartDashboard.putData(this.commandChooser);
     }
 
     /**
@@ -171,6 +185,6 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return null;
+        return this.commandChooser.getSelected();
     }
 }
