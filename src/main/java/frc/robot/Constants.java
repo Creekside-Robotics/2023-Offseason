@@ -183,8 +183,8 @@ public final class Constants {
   }
 
   public static class AutoConstants {
-    public static double maxVelocity = 4;
-    public static double maxAcceleration = 3;
+    public static double maxVelocity = 2;
+    public static double maxAcceleration = 1.5;
 
     public static PIDConstants translationConstants = new PIDConstants(5.0, 0.0, 0.0);
     public static PIDConstants rotationConstants = new PIDConstants(5.0, 0.0, 0.0);

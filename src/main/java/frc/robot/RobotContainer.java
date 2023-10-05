@@ -78,7 +78,7 @@ public class RobotContainer {
      */
     public Command buildAutoCommand(String pathName) {
         ArrayList<PathPlannerTrajectory> pathGroup = (ArrayList<PathPlannerTrajectory>) PathPlanner
-                .loadPathGroup("FullAuto", new PathConstraints(4, 3));
+                .loadPathGroup(pathName, new PathConstraints(AutoConstants.maxVelocity, AutoConstants.maxAcceleration));
 
         HashMap<String, Command> eventMap = new HashMap<>();
         eventMap.put("Score", new ThirdLevelScore(drivetrain, lowerArm, upperArm));
