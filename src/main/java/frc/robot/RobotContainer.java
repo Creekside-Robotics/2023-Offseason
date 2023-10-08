@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.arms.RetractArms;
@@ -107,7 +108,10 @@ public class RobotContainer {
      */
     private void configureAutoCommands() {
         this.commandChooser.setDefaultOption("None", null);
-        this.commandChooser.addOption("Red Three", buildAutoCommand("Red Three"));
+        this.commandChooser.addOption("Red Top Score", buildAutoCommand("Red Top Score"));
+        this.commandChooser.addOption("Red Top Platform", buildAutoCommand("Red Top Platform"));
+        this.commandChooser.addOption("Blue Top Score", buildAutoCommand("Blue Top Score"));
+        this.commandChooser.addOption("Blue Top Platform", buildAutoCommand("Blue Top Platform"));
         SmartDashboard.putData(this.commandChooser);
     }
 
