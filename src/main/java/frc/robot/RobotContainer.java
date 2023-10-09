@@ -114,9 +114,7 @@ public class RobotContainer {
         File[] autoRoutines = new File(Filesystem.getDeployDirectory()+"\\pathplanner").listFiles();
         for(File file : autoRoutines) {
                 if (!file.isFile()) continue;
-                // Trims only last period in the filename
-                // e.g. Blue.Top.Score.path will become Blue.Top.Score
-                String fileName = file.getName().split("\\.(?=[^\\.]+$)")[0];
+                String fileName = file.getName().replace(".path", "");
                 this.commandChooser.addOption(fileName, buildAutoCommand(fileName));
         }
 
