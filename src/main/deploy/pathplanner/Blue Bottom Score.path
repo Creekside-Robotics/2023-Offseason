@@ -153,6 +153,9 @@
       }
     }
   ],
+  "maxVelocity": 3.0,
+  "maxAcceleration": 2.5,
+  "isReversed": null,
   "markers": [
     {
       "position": 1.0000000000000002,
