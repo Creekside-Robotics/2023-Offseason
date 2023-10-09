@@ -13,6 +13,7 @@ import com.pathplanner.lib.PathPlanner;
 import com.pathplanner.lib.PathPlannerTrajectory;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -110,11 +111,11 @@ public class RobotContainer {
     private void configureAutoCommands() {
         this.commandChooser.setDefaultOption("None", null);
         
-        File[] autoRoutines = new File(System.getProperty("user.dir")+"\\src\\main\\deploy\\pathplanner").listFiles();
+        File[] autoRoutines = new File(Filesystem.getDeployDirectory()+"\\pathplanner").listFiles();
         for(File file : autoRoutines) {
                 if (file.isFile()) this.commandChooser.addOption(file.getName().split("[.]", 2)[0], buildAutoCommand(file.getName().split("[.]", 2)[0]));
         }
-        
+
         SmartDashboard.putData(this.commandChooser);
     }
 
