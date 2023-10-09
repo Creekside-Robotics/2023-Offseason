@@ -110,10 +110,14 @@ public class RobotContainer {
      */
     private void configureAutoCommands() {
         this.commandChooser.setDefaultOption("None", null);
-        
+
         File[] autoRoutines = new File(Filesystem.getDeployDirectory()+"\\pathplanner").listFiles();
         for(File file : autoRoutines) {
-                if (file.isFile()) this.commandChooser.addOption(file.getName().split("[.]", 2)[0], buildAutoCommand(file.getName().split("[.]", 2)[0]));
+                if (!file.isFile()) continue;
+                // Trims only last period in the filename
+                // e.g. Blue.Top.Score.path will become Blue.Top.Score
+                String fileName = file.getName().split("\\.(?=[^\\.]+$)")[0];
+                this.commandChooser.addOption(fileName, buildAutoCommand(fileName));
         }
 
         SmartDashboard.putData(this.commandChooser);
