@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,10 +109,12 @@ public class RobotContainer {
      */
     private void configureAutoCommands() {
         this.commandChooser.setDefaultOption("None", null);
-        this.commandChooser.addOption("Red Top Score", buildAutoCommand("Red Top Score"));
-        this.commandChooser.addOption("Red Top Platform", buildAutoCommand("Red Top Platform"));
-        this.commandChooser.addOption("Blue Top Score", buildAutoCommand("Blue Top Score"));
-        this.commandChooser.addOption("Blue Top Platform", buildAutoCommand("Blue Top Platform"));
+        
+        File[] autoRoutines = new File(System.getProperty("user.dir")+"\\src\\main\\deploy\\pathplanner").listFiles();
+        for(File file : autoRoutines) {
+                if (file.isFile()) this.commandChooser.addOption(file.getName().split("[.]", 2)[0], buildAutoCommand(file.getName().split("[.]", 2)[0]));
+        }
+        
         SmartDashboard.putData(this.commandChooser);
     }
 
