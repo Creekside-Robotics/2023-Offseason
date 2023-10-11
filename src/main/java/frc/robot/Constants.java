@@ -158,14 +158,14 @@ public final class Constants {
     public static double lowerOne = -0.1108;
     public static double upperOne = 0.1130;
 
-    public static double lowerIntake = -0.100;
-    public static double upperIntake = 0.010;
+    public static double lowerIntake = -0.170;
+    public static double upperIntake = 0.020;
 
     public static double lowerStowed = -0.248;
-    public static double upperStowed = 0.137;
+    public static double upperStowed = 0.175;
 
     public static double lowerPickup = 0.055;
-    public static double upperPickup = 0.055;
+    public static double upperPickup = 0.060;
 
     public static double upperTransitional = 0.175;
   }
