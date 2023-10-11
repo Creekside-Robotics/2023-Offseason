@@ -111,7 +111,7 @@ public class RobotContainer {
     private void configureAutoCommands() {
         this.commandChooser.setDefaultOption("None", null);
 
-        File[] autoRoutines = new File(Filesystem.getDeployDirectory()+"\\pathplanner").listFiles();
+        File[] autoRoutines = new File(Filesystem.getDeployDirectory()+"/pathplanner").listFiles();
         for(File file : autoRoutines) {
                 if (!file.isFile()) continue;
                 String fileName = file.getName().replace(".path", "");
