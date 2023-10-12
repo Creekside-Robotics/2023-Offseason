@@ -85,7 +85,8 @@ public final class Constants {
 
     public static int openClaw = 7;
     public static int closeClaw = 8;
-    public static int retractArms = 11;
+    public static int indexObject = 11;
+    public static int retractArms = 12;
     public static int extendIntake = 9;
     public static int retractIntake = 10;
   }

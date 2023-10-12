@@ -175,17 +175,19 @@ public class RobotContainer {
                 .onFalse(new SequentialCommandGroup(new OpenClaw(claw), new RetractArms(lowerArm, upperArm)));
 
         this.alternateController.buttons.get(ControllerConstants.openClaw)
-                .whileTrue(new OpenClaw(claw));
+                .onTrue(new OpenClaw(claw));
         this.alternateController.buttons.get(ControllerConstants.closeClaw)
-                .whileTrue(new CloseClaw(claw));
-
+                .onTrue(new CloseClaw(claw));
+        
+        this.alternateController.buttons.get(ControllerConstants.indexObject)
+                .onTrue(new StowObjectIntake(lowerArm, upperArm, intake, claw));
         this.alternateController.buttons.get(ControllerConstants.retractArms)
-                .whileTrue(new RetractArms(lowerArm, upperArm));
+                .onTrue(new RetractArms(lowerArm, upperArm));
 
         this.alternateController.buttons.get(ControllerConstants.extendIntake)
-                .whileTrue(new ExtendIntake(intake));
+                .onTrue(new ExtendIntake(intake));
         this.alternateController.buttons.get(ControllerConstants.retractIntake)
-                .whileTrue(new RetractIntake(intake));
+                .onTrue(new RetractIntake(intake));
     }
 
     /**
